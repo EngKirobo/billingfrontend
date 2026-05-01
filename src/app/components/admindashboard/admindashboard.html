@@ -1,0 +1,42 @@
+<!-- admindashboard.component.html -->
+<header class="top-navbar">
+  <div class="navbar-container">
+
+    <!-- Logo -->
+    <div class="logo">
+      <h2>Admin Panel</h2>
+    </div>
+
+    <!-- Horizontal Menu -->
+    <nav class="nav-menu">
+      <ul>
+        <li>
+          <!-- <a routerLink="/admin/dashboard" routerLinkActive="active">
+            Dashboard
+          </a>
+        </li> -->
+        <li>
+          <a routerLink="/admin/users" routerLinkActive="active">
+            Users & Roles
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/permissions" routerLinkActive="active">
+            Permissions
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Right Side (Optional) -->
+    <div class="nav-right">
+      <span>Welcome, Admin</span>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+</header>
+
+<!-- Child Content Area -->
+<main class="content-area">
+  <router-outlet></router-outlet>
+</main>

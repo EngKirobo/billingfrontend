@@ -1,0 +1,45 @@
+@if (canViewUsers) {
+  <div class="table-container">
+    <h2>Users Management</h2>
+
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Current Role</th>
+          <th>Assign New Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users.slice(0, 10); track user) {
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td><strong>{{ user.role?.name || 'No Role' }}</strong></td>
+            <td>
+              <select #roleSelect class="role-select">
+                <option value="" disabled selected>Select Role</option>
+                @for (role of loudroles; track role) {
+                  <option [value]="role.id">
+                    {{ role.name }}
+                  </option>
+                }
+              </select>
+            </td>
+            <td>
+              @if (canUpdateUsers) {
+                <button class="update-btn" (click)="changeRole(user.id, roleSelect.value)">
+                  Update
+                </button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <p class="no-access">You are not allowed to view users.</p>
+}

@@ -1,0 +1,48 @@
+<div class="permissions-container">
+  <h2>Manage Role Permissions</h2>
+
+  <!-- Select Role -->
+  <div class="role-selector">
+    <label for="roleSelect">Select Role:</label>
+    <select id="roleSelect" [(ngModel)]="selectedRoleId" (change)="onRoleChange()">
+      <option [value]="null">-- Select Role --</option>
+      @for (role of roles; track role) {
+        <option [value]="role.id">
+          {{ role.name }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <hr />
+
+  <!-- Permissions List -->
+  @if (selectedRoleId) {
+    <div class="permissions-section">
+      <h3>Permissions for Selected Role</h3>
+
+      <div class="permissions-list">
+        @for (perm of permissions; track perm) {
+          <div class="permission-item">
+            <label>
+              <input
+                type="checkbox"
+                [checked]="selectedPermissions.includes(perm.id)"
+                (change)="togglePermission(perm.id)"
+              />
+              <span>{{ perm.name }}</span>
+            </label>
+          </div>
+        }
+      </div>
+
+      <div class="action-bar">
+        <button class="update-btn" (click)="updatePermissions()">
+          Update Permissions
+        </button>
+      </div>
+    </div>
+  } @else {
+    <p class="select-prompt">Please select a role to view and manage permissions.</p>
+  }
+</div>

@@ -1,0 +1,124 @@
+/* Top Navbar */
+.top-navbar {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.logo h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #3498db;
+  letter-spacing: 1px;
+}
+
+/* Main Navigation Links */
+.nav-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #3498db;
+}
+
+.nav-menu a.active {
+  background-color: #3498db;
+  color: white;
+  font-weight: 600;
+}
+
+/* Auth Links (Login & Register) */
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-link {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.auth-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.register-btn {
+  background-color: #27ae60;
+  border: 2px solid #27ae60;
+  color: white;
+}
+
+.register-btn:hover {
+  background-color: #219a52;
+  border-color: #219a52;
+  transform: translateY(-2px);
+}
+
+/* Content Area */
+.content-area {
+  max-width: 1300px;
+  margin: 40px auto;
+  padding: 0 25px;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .navbar-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .nav-menu ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-menu a,
+  .auth-link {
+    padding: 8px 14px;
+    font-size: 0.95rem;
+  }
+
+  .logo h2 {
+    font-size: 1.5rem;
+  }
+}

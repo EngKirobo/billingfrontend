@@ -1,0 +1,105 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Create Account</h2>
+    <p class="subtitle">Join us today</p>
+
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="user.name"
+          name="name"
+          placeholder="Enter your full name"
+          required>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="user.email"
+          name="email"
+          (input)="onEmailChange()"
+          placeholder="Enter your email"
+          required>
+
+        @if (user.email) {
+          <div class="email-status">
+
+            @if (isEmailChecking) {
+              <span class="checking">Checking availability...</span>
+            }
+
+            @if (emailExists && !isEmailChecking) {
+              <span class="error">Email already registered</span>
+            }
+
+            @if (!emailExists && !isEmailChecking && user.email.length > 5) {
+              <span class="success">Email available</span>
+            }
+
+          </div>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="user.password"
+          name="password"
+          placeholder="Create a password"
+          required>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm your password"
+          required>
+      </div>
+
+      <!-- Error Message -->
+      @if (errorMessage) {
+        <div class="alert error">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <!-- Success Message -->
+      @if (successMessage) {
+        <div class="alert success">
+          {{ successMessage }}
+        </div>
+      }
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="isLoading || emailExists || !user.email || !user.password || !confirmPassword">
+        {{ isLoading ? 'Creating Account...' : 'Register' }}
+      </button>
+
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account?
+        <a routerLink="/login">Login here</a>
+      </p>
+    </div>
+  </div>
+</div>
