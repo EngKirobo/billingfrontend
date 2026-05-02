@@ -1,0 +1,72 @@
+<div class="page-wrapper">
+
+  <div class="content-card">
+
+    <h2 class="title">Rooms Cost Management</h2>
+
+    <!-- FORM -->
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form-section">
+
+      <div class="form-group">
+        <label>Amount</label>
+        <input
+          type="number"
+          formControlName="amount"
+          class="form-control"
+          placeholder="Enter amount"
+        >
+
+        <small class="error"
+          *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched">
+          Amount must be valid
+        </small>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" type="submit">
+          {{ isEdit ? 'Update' : 'Create' }}
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="reset()">
+          Reset
+        </button>
+      </div>
+
+    </form>
+
+    <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let price of prices">
+            <td>{{ price.id }}</td>
+            <td>{{ price.amount }}</td>
+            <td>{{ price.createdAt | date:'short' }}</td>
+            <td>{{ price.updatedAt | date:'short' }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="edit(price)">
+                Edit
+              </button>
+
+              <button class="btn btn-danger btn-sm" (click)="delete(price.id!)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
