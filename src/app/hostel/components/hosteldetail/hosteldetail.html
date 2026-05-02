@@ -1,0 +1,120 @@
+<div class="page-wrapper">
+  <div class="content-card">
+    <h2 class="title">Hostel and Rooms Details</h2>
+
+    <!-- FORM -->
+<form [formGroup]="form" (ngSubmit)="submit()" class="form-section">
+
+  <div class="form-grid">
+
+    <!-- Hostel Name -->
+    <div class="form-group">
+      <label>Hostel Name</label>
+      <select formControlName="hostelId" class="form-control">
+        <option [ngValue]="null">-- Select Hostel Name --</option>
+        <option [ngValue]="1">Hostel I</option>
+        <option [ngValue]="2">Hostel II</option>
+        <option [ngValue]="3">Hostel III</option>
+        <option [ngValue]="4">Hostel IV</option>
+      </select>
+      <small class="error" *ngIf="form.get('hostelId')?.invalid && form.get('hostelId')?.touched">
+        Please select a valid Hostel.
+      </small>
+    </div>
+
+    <!-- Room Name -->
+    <div class="form-group">
+      <label>Room Name</label>
+      <input type="text" formControlName="name" class="form-control">
+      <small class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+        Room Name is required.
+      </small>
+    </div>
+
+    <!-- Entry Level -->
+    <div class="form-group">
+      <label>Entry Level</label>
+      <select formControlName="levelId" class="form-control">
+        <option [ngValue]="null">-- Select Entry Level --</option>
+        <option [ngValue]="1">Veta</option>
+        <option [ngValue]="2">Diploma</option>
+        <option [ngValue]="3">Bachelor</option>
+      </select>
+      <small class="error" *ngIf="form.get('levelId')?.invalid && form.get('levelId')?.touched">
+        Education Entry Level is required.
+      </small>
+    </div>
+
+    <!-- Intake -->
+    <div class="form-group">
+      <label>Intake</label>
+      <select formControlName="intakeId" class="form-control">
+        <option [ngValue]="null">-- Select Intake --</option>
+        <option *ngFor="let intake of intakes" [ngValue]="intake.id">
+          {{ intake.intake }}
+        </option>
+      </select>
+      <small class="error" *ngIf="form.get('intakeId')?.invalid && form.get('intakeId')?.touched">
+        Please select an Intake.
+      </small>
+    </div>
+
+    <!-- Gender -->
+    <div class="form-group">
+      <label>Gender</label>
+      <select formControlName="genderId" class="form-control">
+        <option [ngValue]="null">-- Select Gender --</option>
+        <option [ngValue]="1">Male</option>
+        <option [ngValue]="2">Female</option>
+      </select>
+      <small class="error" *ngIf="form.get('genderId')?.invalid && form.get('genderId')?.touched">
+        Gender is required.
+      </small>
+    </div>
+
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="btn-group">
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+      {{ isEdit ? 'Update' : 'Create' }}
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="reset()">
+      Reset
+    </button>
+  </div>
+
+</form>
+
+    <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Hostel ID</th>
+            <th>Name</th>
+            <th>Level ID</th>
+            <th>Intake ID</th>
+            <th>Gender ID</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of details">
+            <td>{{ d.id }}</td>
+            <td>{{ d.hostelId }}</td>
+            <td>{{ d.name }}</td>
+            <td>{{ d.levelId }}</td>
+            <td>{{ d.intakeId }}</td>
+            <td>{{ d.genderId }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="edit(d)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="delete(d.id!)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
