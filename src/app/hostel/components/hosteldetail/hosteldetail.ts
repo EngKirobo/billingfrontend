@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { IntakeService } from '../../services/intake';
 import { Intake } from '../../interfaces/intake';
+import { Hostel } from '../../interfaces/hostel';
+import { HostelService } from '../../services/hostel';
 
 @Component({
   selector: 'app-hosteldetail',
@@ -17,6 +19,7 @@ export class HostelDetailComponent implements OnInit {
   details: HostelDetail[] = [];
   form!: FormGroup;
   intakes: Intake[] = [];
+  hostels: Hostel[] = [];
   isEdit = false;
   selectedId!: number;
 
@@ -26,12 +29,14 @@ export class HostelDetailComponent implements OnInit {
     private service: HostelDetailService,
     private fb: FormBuilder,
     private intakeService: IntakeService,
+    private hostelService: HostelService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.load();
     this.loadIntakes();
+    this.loadHostels();
 
 this.form = this.fb.group({
   hostelId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -113,6 +118,16 @@ loadSavedForm() {
     });
   }
 
+    loadHostels() {
+    this.hostelService.getAll().subscribe({
+      next: (data) => {
+        this.hostels = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
   load() {
     this.service.getAll().subscribe({
       next: (data) => {
@@ -134,5 +149,15 @@ loadSavedForm() {
     this.service.delete(id).subscribe(() => {
       this.load();
     });
+  }
+
+  getIntakeValue(id: number | null | undefined): number | string {
+    const found = this.intakes.find(i => i.id === id);
+    return found ? found.intake : 'N/A';
+  }
+
+    getHostelValue(id: number | null | undefined): number | string {
+    const found = this.hostels.find(i => i.id === id);
+    return found ? found.name : 'N/A';
   }
 }

@@ -103,10 +103,12 @@
         <tbody>
           <tr *ngFor="let d of details">
             <td>{{ d.id }}</td>
-            <td>{{ d.hostelId }}</td>
+            <!-- <td>{{ d.hostelId }}</td> -->
+             <td>{{ getHostelValue(d.hostelId) }}</td>
             <td>{{ d.name }}</td>
             <td>{{ d.levelId }}</td>
-            <td>{{ d.intakeId }}</td>
+            <td>{{ getIntakeValue(d.intakeId) }}</td>
+            <!-- <td>{{ d.intakeId }}</td> -->
             <td>{{ d.genderId }}</td>
             <td>
               <button class="btn btn-warning btn-sm" (click)="edit(d)">Edit</button>
