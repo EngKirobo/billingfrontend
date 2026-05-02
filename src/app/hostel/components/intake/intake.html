@@ -1,0 +1,72 @@
+<div class="page-wrapper">
+
+  <div class="content-card">
+
+    <h2 class="title">Intake Management</h2>
+
+    <!-- FORM -->
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form-section">
+
+      <div class="form-group">
+        <label>Intake</label>
+        <input
+          type="number"
+          formControlName="intake"
+          class="form-control"
+          placeholder="Enter intake year (e.g. 2025)"
+        >
+
+        <small class="error"
+          *ngIf="form.get('intake')?.invalid && form.get('intake')?.touched">
+          Intake is required
+        </small>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" type="submit">
+          {{ isEdit ? 'Update' : 'Create' }}
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="reset()">
+          Reset
+        </button>
+      </div>
+
+    </form>
+
+    <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Intake</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let i of intakes">
+            <td>{{ i.id }}</td>
+            <td>{{ i.intake }}</td>
+            <td>{{ i.createdAt | date:'short' }}</td>
+            <td>{{ i.updatedAt | date:'short' }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="edit(i)">
+                Edit
+              </button>
+
+              <button class="btn btn-danger btn-sm" (click)="delete(i.id!)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>

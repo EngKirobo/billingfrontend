@@ -1,0 +1,175 @@
+/* PAGE BACKGROUND + CENTERING */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f4f6f9;
+  padding: 40px 20px;
+}
+
+/* MAIN CARD */
+.content-card {
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* TITLE */
+.title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* FORM */
+.form-section {
+  margin-bottom: 30px;
+}
+
+/* FORM GROUP */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* INPUT */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  transition: 0.3s;
+}
+
+.form-control:focus {
+  border-color: #4c7faf;
+  box-shadow: 0 0 6px rgba(76, 127, 175, 0.3);
+  outline: none;
+}
+
+/* ERROR */
+.error {
+  color: #e74c3c;
+  font-size: 12px;
+}
+
+/* BUTTONS */
+.btn-group {
+  display: flex;
+  gap: 10px; /* ✅ FIXED */
+  margin-top: 15px;
+}
+
+/* BUTTON BASE */
+.btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* BUTTON COLORS */
+.btn-primary {
+  background: #4c7faf;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #3b6d99; /* ✅ consistent hover */
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+.btn-warning {
+  background: #f39c12;
+  color: white;
+}
+
+.btn-danger {
+  background: #e74c3c;
+  color: white;
+}
+
+/* TABLE */
+.table-section {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* TABLE HEADER */
+.custom-table thead {
+  background: #4c7faf; /* match theme */
+  color: white;
+}
+
+.custom-table th {
+  padding: 12px;
+  text-align: left;
+}
+
+/* TABLE BODY */
+.custom-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* ROW HOVER */
+.custom-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+/* ACTION BUTTON SPACING */
+td button {
+  margin-right: 5px;
+}
+
+/* SMALL BUTTONS */
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .content-card {
+    padding: 15px;
+  }
+
+  .btn {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    font-size: 12px;
+  }
+}

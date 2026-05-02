@@ -30,7 +30,7 @@ export class PriceComponent implements OnInit {
     this.loadPrices();
     //  this.cdr.detectChanges();
     this.form = this.fb.group({
-      amount: [0, [Validators.required, Validators.min(0)]]
+      amount: [null, [Validators.required, Validators.min(0)]]
     });
   }
 

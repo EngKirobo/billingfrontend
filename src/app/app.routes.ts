@@ -8,6 +8,7 @@ import { AdminUsers } from './admin-users/admin-users';
 import { adminGuard } from './guards/admin-guard';
 import { RolePermissions } from './components/role-permissions/role-permissions';
 import { Admindashboard } from './components/admindashboard/admindashboard';
+import { IntakeComponent } from './hostel/components/intake/intake';
 // import { RegisterComponent } from './features/auth/register/register';
 
 // app.routes.ts (or admin.routes.ts)
@@ -50,6 +51,7 @@ export const routes: Routes = [
  {path:'login',component: Login },
  {path: 'register',component: Register},
  {path: 'prices',component: PriceComponent},
+ {path: 'intakes',component: IntakeComponent},
  {path: 'dashboard',component:UserDashboard},
  ...adminRoutes,
  // Default redirect
