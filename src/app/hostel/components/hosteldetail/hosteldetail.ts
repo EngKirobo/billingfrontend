@@ -1,3 +1,5 @@
+import { EduLevel } from './../../interfaces/edulevel';
+import { EduLevelService } from './../../services/edulevel';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HostelDetailService } from '../../services/hosteldetail';
 import { HostelDetail } from '../../interfaces/hosteldetail';
@@ -7,6 +9,10 @@ import { IntakeService } from '../../services/intake';
 import { Intake } from '../../interfaces/intake';
 import { Hostel } from '../../interfaces/hostel';
 import { HostelService } from '../../services/hostel';
+import { GenderService } from '../../services/gender';
+import { Gender } from '../../interfaces/gender';
+
+
 
 @Component({
   selector: 'app-hosteldetail',
@@ -22,14 +28,21 @@ export class HostelDetailComponent implements OnInit {
   hostels: Hostel[] = [];
   isEdit = false;
   selectedId!: number;
+  genders: Gender[] = [];
+  loading = false;
+  edulevels:EduLevel[]=[];
+  eduloading=false;
 
   private STORAGE_KEY = 'hosteldetail_form';
 
   constructor(
     private service: HostelDetailService,
     private fb: FormBuilder,
-    private intakeService: IntakeService,
     private hostelService: HostelService,
+    private intakeService: IntakeService,
+    private genderService: GenderService,
+    private edulevelService:EduLevelService,
+
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -37,6 +50,8 @@ export class HostelDetailComponent implements OnInit {
     this.load();
     this.loadIntakes();
     this.loadHostels();
+    this.loadedulevels();
+    this.loadGenders();
 
 this.form = this.fb.group({
   hostelId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -128,6 +143,35 @@ loadSavedForm() {
     });
   }
 
+  loadGenders(): void {
+    this.loading = true;
+    this.genderService.getAll().subscribe({
+      next: (data) => {
+        this.genders = data;
+        this.cdr.detectChanges();
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.loading = false;
+      }
+    });
+  }
+
+    loadedulevels(): void {
+    this.eduloading = true;
+    this.edulevelService.getAll().subscribe({
+      next: (data) => {
+        this.edulevels = data;
+        this.eduloading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.eduloading = false;
+      }
+    });
+  }
+
   load() {
     this.service.getAll().subscribe({
       next: (data) => {
@@ -154,6 +198,17 @@ loadSavedForm() {
   getIntakeValue(id: number | null | undefined): number | string {
     const found = this.intakes.find(i => i.id === id);
     return found ? found.intake : 'N/A';
+  }
+
+    getGenderValue(id: number | null | undefined): number | string {
+    const found = this.genders.find(i => i.id === id);
+    return found ? found.gender : 'N/A';
+  }
+
+
+    getEdulelValue(id: number | null | undefined): number | string {
+    const found = this.edulevels.find(i => i.id === id);
+    return found ? found.eduLevel : 'N/A';
   }
 
     getHostelValue(id: number | null | undefined): number | string {

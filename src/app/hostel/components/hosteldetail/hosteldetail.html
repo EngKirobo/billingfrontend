@@ -12,10 +12,9 @@
       <label>Hostel Name</label>
       <select formControlName="hostelId" class="form-control">
         <option [ngValue]="null">-- Select Hostel Name --</option>
-        <option [ngValue]="1">Hostel I</option>
-        <option [ngValue]="2">Hostel II</option>
-        <option [ngValue]="3">Hostel III</option>
-        <option [ngValue]="4">Hostel IV</option>
+        <option *ngFor="let host of hostels" [ngValue]="host.id">
+          {{ host.name }}
+        </option>
       </select>
       <small class="error" *ngIf="form.get('hostelId')?.invalid && form.get('hostelId')?.touched">
         Please select a valid Hostel.
@@ -36,9 +35,9 @@
       <label>Entry Level</label>
       <select formControlName="levelId" class="form-control">
         <option [ngValue]="null">-- Select Entry Level --</option>
-        <option [ngValue]="1">Veta</option>
-        <option [ngValue]="2">Diploma</option>
-        <option [ngValue]="3">Bachelor</option>
+        <option *ngFor="let edu of edulevels" [ngValue]="edu.id">
+          {{ edu.eduLevel }}
+        </option>
       </select>
       <small class="error" *ngIf="form.get('levelId')?.invalid && form.get('levelId')?.touched">
         Education Entry Level is required.
@@ -59,7 +58,22 @@
       </small>
     </div>
 
-    <!-- Gender -->
+
+        <!-- Gender -->
+    <div class="form-group">
+      <label>Gender</label>
+      <select formControlName="genderId" class="form-control">
+        <option [ngValue]="null">-- Select Gender --</option>
+        <option *ngFor="let gender of genders" [ngValue]="gender.id">
+          {{ gender.gender }}
+        </option>
+      </select>
+      <small class="error" *ngIf="form.get('genderId')?.invalid && form.get('genderId')?.touched">
+        Gender is required.
+      </small>
+    </div>
+
+    <!-- Gender
     <div class="form-group">
       <label>Gender</label>
       <select formControlName="genderId" class="form-control">
@@ -70,7 +84,7 @@
       <small class="error" *ngIf="form.get('genderId')?.invalid && form.get('genderId')?.touched">
         Gender is required.
       </small>
-    </div>
+    </div> -->
 
   </div>
 
@@ -92,11 +106,11 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Hostel ID</th>
+            <th>Hostel</th>
             <th>Name</th>
-            <th>Level ID</th>
-            <th>Intake ID</th>
-            <th>Gender ID</th>
+            <th>EntryLevel</th>
+            <th>Intake</th>
+            <th>Gender</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -106,10 +120,10 @@
             <!-- <td>{{ d.hostelId }}</td> -->
              <td>{{ getHostelValue(d.hostelId) }}</td>
             <td>{{ d.name }}</td>
-            <td>{{ d.levelId }}</td>
+            <td>{{ getEdulelValue(d.levelId) }}</td>
             <td>{{ getIntakeValue(d.intakeId) }}</td>
             <!-- <td>{{ d.intakeId }}</td> -->
-            <td>{{ d.genderId }}</td>
+            <td>{{ getGenderValue(d.genderId) }}</td>
             <td>
               <button class="btn btn-warning btn-sm" (click)="edit(d)">Edit</button>
               <button class="btn btn-danger btn-sm" (click)="delete(d.id!)">Delete</button>

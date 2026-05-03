@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HostelDetailComponent } from './hosteldetail'; // ✅ FIXED
 
-import { Hosteldetail } from './hosteldetail';
+describe('HostelDetailComponent', () => {
 
-describe('Hosteldetail', () => {
-  let component: Hosteldetail;
-  let fixture: ComponentFixture<Hosteldetail>;
+  let component: HostelDetailComponent;
+  let fixture: ComponentFixture<HostelDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Hosteldetail],
+      imports: [HostelDetailComponent], // ✅ standalone component
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Hosteldetail);
+    fixture = TestBed.createComponent(HostelDetailComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -19,4 +19,5 @@ describe('Hosteldetail', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
