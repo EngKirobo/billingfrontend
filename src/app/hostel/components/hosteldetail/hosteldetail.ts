@@ -53,13 +53,13 @@ export class HostelDetailComponent implements OnInit {
     this.loadedulevels();
     this.loadGenders();
 
-this.form = this.fb.group({
-  hostelId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
-  name: ['', Validators.required],
-  levelId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
-  intakeId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
-  genderId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]]
-});
+    this.form = this.fb.group({
+      hostelId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
+      name: ['', Validators.required],
+      levelId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
+      intakeId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]],
+      genderId: [null, [Validators.required, Validators.pattern("^[0-9]*$")]]
+    });
 
     // ✅ Load saved values immediately
     this.loadSavedForm();

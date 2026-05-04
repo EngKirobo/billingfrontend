@@ -1,3 +1,4 @@
+import { StudentsComponent } from './student/components/students/students';
 import { PriceComponent } from './hostel/components/price/price';
 import { Component } from '@angular/core';
 import { Register } from './features/auth/register/register';
@@ -56,6 +57,7 @@ export const routes: Routes = [
  {path: 'intakes',component: IntakeComponent},
  {path: 'hostels',component: HostelComponent},
  {path: 'hosteldetails',component: HostelDetailComponent},
+ {path: 'students',component: StudentsComponent},
  {path: 'dashboard',component:UserDashboard},
  ...adminRoutes,
  // Default redirect

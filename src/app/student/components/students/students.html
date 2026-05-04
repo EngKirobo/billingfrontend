@@ -1,0 +1,129 @@
+<div class="page-wrapper">
+  <div class="content-card">
+
+    <h2 class="title">Add or Register Students</h2>
+
+    <div class="form-group">
+
+      <div style="display:flex">
+        <label style="width:20%" >Search Student</label>
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          name="searchTerm"
+          class="form-control" style="max-width: 50%;"
+          placeholder="Search by name, admin no, email..."
+        >
+      </div>
+    </div>
+    <!-- FORM -->
+    <div class="form-section">
+      <form (ngSubmit)="save()">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Name</label>
+            <input #nameInput [(ngModel)]="student.name" name="name" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label>Admin No</label>
+            <input [(ngModel)]="student.admino" name="admino" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input [(ngModel)]="student.email" name="email" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Telephone</label>
+            <input [(ngModel)]="student.telephone" name="telephone" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" [(ngModel)]="student.dob" name="dob" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Gender ID</label>
+            <input type="number" [(ngModel)]="student.genderId" name="genderId" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Entry ID</label>
+            <input type="number" [(ngModel)]="student.entryId" name="entryId" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Program ID</label>
+            <input type="number" [(ngModel)]="student.programId" name="programId" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Intake ID</label>
+            <input type="number" [(ngModel)]="student.intakeId" name="intakeId" class="form-control">
+          </div>
+
+
+          <div class="form-group">
+            <label>Country</label>
+            <input [(ngModel)]="student.country" name="country" class="form-control">
+          </div>
+
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">
+            {{ isEditing ? 'Update' : 'Save' }}
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Admin No</th>
+            <th>Email</th>
+            <th>Country</th>
+            <th>DOB</th>
+            <th>Gender</th>
+            <th>Program</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- <tr *ngFor="let s of students"> -->
+          <!-- <tr *ngFor="let s of filteredStudents()"> -->
+          <tr *ngFor="let s of filteredStudents()" (click)="edit(s)" style="cursor: pointer;">
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.admino }}</td>
+            <td>{{ s.email }}</td>
+            <td>{{ s.country }}</td>
+            <td>{{ s.dob }}</td>
+            <td>{{ s.genderId }}</td>
+            <td>{{ s.programId }}</td>
+
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="edit(s)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="delete(s.id!)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</div>
