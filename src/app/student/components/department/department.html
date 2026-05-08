@@ -1,0 +1,85 @@
+<div class="page-wrapper">
+  <div class="content-card">
+
+    <h2 class="title">Department Management</h2>
+
+<div class="top-row">
+
+  <!-- SEARCH -->
+ <div style=" gap:2%; justify-content:center;">
+    <label>Search Department</label>
+    <br>
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search department..."
+      class="form-control" style="max-width: 50%;"
+    />
+
+    <!-- SUCCESS MESSAGE -->
+    <div *ngIf="successMessage" class="success-msg">
+      {{ successMessage }}
+  </div>
+</div>
+<br>
+  <!-- FORM -->
+<div class="form-section text-center">
+  <!-- FORM -->
+<div class="form-section text-center mb-4">
+  <form [formGroup]="form" (ngSubmit)="save()"
+        class="d-flex justify-content-center align-items-end gap-4 flex-wrap">
+
+    <div class="form-group">
+      <label class="d-block mb-1 fw-bold">Student Name</label>
+      <input type="text" formControlName="name"
+             class="form-control" style="min-width: 320px;">
+    </div>
+<br>
+    <div class="btn-group" style="margin-bottom: 5px;">
+      <button type="submit" class="btn btn-primary px-5" [disabled]="form.invalid">
+        {{ isEditing ? 'Update' : 'Save' }}
+      </button>
+      <button type="button" class="btn btn-secondary px-4" (click)="clear()">
+        Clear
+      </button>
+    </div>
+
+  </form>
+</div>
+</div>
+
+</div>
+
+    <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let d of filteredDepartments; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ d.name }}</td>
+            <td>{{ d.createdAt }}</td>
+            <td>{{ d.updatedAt }}</td>
+
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="edit(d)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="delete(d.id!)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</div>

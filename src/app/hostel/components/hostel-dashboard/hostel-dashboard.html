@@ -1,0 +1,31 @@
+<div class="dashboard-container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-top">
+      <h2 class="logo">Hostel Dashboard</h2>
+      <p class="subtitle">Management System</p>
+    </div>
+
+    <nav class="menu">
+
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active-link"
+        class="menu-link"
+      >
+        <span>{{ item.label }}</span>
+      </a>
+
+    </nav>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

@@ -1,0 +1,77 @@
+<div class="page-wrapper">
+  <div class="content-card">
+    <h2 class="title">View Rooms Allocations for Each Level</h2>
+
+
+
+<form [formGroup]="form" class="filter-row">
+  <div class="form-group">
+    <label>Hostel Name</label>
+    <select formControlName="hostelId" class="form-control">
+      <option [ngValue]="null">-- Select Hostel Name --</option>
+      <option *ngFor="let host of hostels" [ngValue]="host.id">
+        {{ host.name }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Entry Level -->
+    <div class="form-group">
+      <label>Entry Level</label>
+      <select formControlName="levelId" class="form-control">
+        <option [ngValue]="null">-- Select Entry Level --</option>
+        <option *ngFor="let edu of edulevels" [ngValue]="edu.id">
+          {{ edu.eduLevel }}
+        </option>
+      </select>
+      <small class="error" *ngIf="form.get('levelId')?.invalid && form.get('levelId')?.touched">
+        Education Entry Level is required.
+      </small>
+    </div>
+
+    <!-- Intake -->
+    <div class="form-group">
+      <label>Intake</label>
+      <select formControlName="intakeId" class="form-control">
+        <option [ngValue]="null">-- Select Intake --</option>
+        <option *ngFor="let intake of intakes" [ngValue]="intake.id">
+          {{ intake.intake }}
+        </option>
+      </select>
+      <small class="error" *ngIf="form.get('intakeId')?.invalid && form.get('intakeId')?.touched">
+        Please select an Intake.
+      </small>
+    </div>
+
+</form>
+
+     <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Hostel</th>
+            <th>Name</th>
+            <th>EntryLevel</th>
+            <th>Intake</th>
+            <th>Gender</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of filteredDetails; let i = index">
+            <td>{{ i + 1 }}</td>
+            <!-- <td>{{ d.hostelId }}</td> -->
+             <td>{{ getHostelValue(d.hostelId) }}</td>
+            <td>{{ d.name }}</td>
+            <td>{{ getEdulelValue(d.levelId) }}</td>
+            <td>{{ getIntakeValue(d.intakeId) }}</td>
+            <!-- <td>{{ d.intakeId }}</td> -->
+            <td>{{ getGenderValue(d.genderId) }}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+

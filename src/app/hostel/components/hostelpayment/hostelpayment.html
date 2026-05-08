@@ -1,0 +1,122 @@
+<div class="page-wrapper">
+  <div class="content-card">
+
+    <h2 class="title">Payment Management</h2>
+
+    <!-- SUCCESS -->
+    <div *ngIf="successMessage" class="success-msg">
+      {{ successMessage }}
+    </div>
+
+    <!-- ERROR -->
+    <div *ngIf="errorMessage" class="error-box">
+      {{ errorMessage }}
+    </div>
+
+    <!-- FORM -->
+    <form [formGroup]="form" (ngSubmit)="save()" class="form-section">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Booking ID</label>
+          <input
+            type="number"
+            formControlName="hostelbookingId"
+            class="form-control"
+            placeholder="Enter Booking ID"
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Control Number</label>
+          <input
+            type="text"
+            formControlName="controlNumber"
+            class="form-control"
+            placeholder="Enter Control Number"
+          >
+        </div>
+
+        <!-- <div class="form-group">
+          <label>Payment Date</label>
+          <input
+            type="datetime-local"
+            formControlName="paymentDate"
+            class="form-control"
+          >
+        </div> -->
+
+        <!-- <div class="form-group">
+          <label>Status</label>
+          <select formControlName="status" class="form-control">
+            <option [ngValue]="true">Paid</option>
+            <option [ngValue]="false">Pending</option>
+          </select>
+        </div> -->
+
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          {{ isEditing ? 'Update' : 'Save' }}
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="form.reset({status:false})">
+          Clear
+        </button>
+      </div>
+
+    </form>
+
+    <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Booking</th>
+            <th>Control</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of payments">
+
+            <td>{{ p.id }}</td>
+            <td>{{ p.hostelbookingId }}</td>
+            <td>{{ p.controlNumber }}</td>
+            <td>{{ p.paymentDate | date:'short' }}</td>
+
+            <td>
+              <span [ngStyle]="{
+                color: p.status ? 'green' : 'red',
+                fontWeight: 'bold'
+              }">
+                {{ p.status ? 'Paid' : 'Pending' }}
+              </span>
+            </td>
+
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="edit(p)">
+                Edit
+              </button>
+
+              <button class="btn btn-danger btn-sm" (click)="delete(p.id!)">
+                Delete
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</div>

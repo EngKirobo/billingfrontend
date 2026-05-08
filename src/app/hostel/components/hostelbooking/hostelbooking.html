@@ -1,0 +1,129 @@
+<div class="page-wrapper">
+  <div class="content-card">
+
+    <h2 class="title">Hostel Booking Management</h2>
+
+<div *ngIf="errorMessage" class="error-box">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="successMessage" class="success-box">
+  {{ successMessage }}
+</div>
+
+    <!-- FORM -->
+    <div class="form-section">
+      <form [formGroup]="form" (ngSubmit)="save()" class="form-grid">
+
+        <div class="form-group">
+          <label>Room ID <span class="required">*</span></label>
+          <input type="number" formControlName="roomId" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Student ID <span class="required">*</span></label>
+          <input type="number" formControlName="studentId" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Academic Year <span class="required">*</span></label>
+          <input type="text" formControlName="academicYear" placeholder="e.g. 2025/2026" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Semester <span class="required">*</span></label>
+          <select formControlName="semester" class="form-control">
+            <option value="">-- Select Semester --</option>
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="d-block">Verified</label>
+          <input type="checkbox" formControlName="verified">
+        </div>
+
+        <div class="form-group">
+          <label class="d-block">Allowed</label>
+          <input type="checkbox" formControlName="allowed">
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+            {{ isEditing ? 'Update Booking' : 'Create Booking' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">
+            Clear
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- TABLE with Pagination -->
+    <div class="table-section">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Room ID</th>
+            <th>Student ID</th>
+            <th>Academic Year</th>
+            <th>Semester</th>
+            <th>Verified</th>
+            <th>Allowed</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of paginatedBookings; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ booking.roomId }}</td>
+            <td>{{ booking.studentId }}</td>
+            <td>{{ booking.academicYear }}</td>
+            <td>{{ booking.semester }}</td>
+            <td>
+              <span class="badge" [class.bg-success]="booking.verified" [class.bg-danger]="!booking.verified">
+                {{ booking.verified ? 'Yes' : 'No' }}
+              </span>
+            </td>
+            <td>
+              <span class="badge" [class.bg-success]="booking.allowed" [class.bg-warning]="!booking.allowed">
+                {{ booking.allowed ? 'Yes' : 'No' }}
+              </span>
+            </td>
+            <td>{{ booking.createdAt | date:'short' }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="edit(booking)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="delete(booking.id!)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination Controls -->
+      <div class="pagination-container" *ngIf="bookings.length > 0">
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <span>Showing {{ startIndex + 1 }} to {{ endIndex }} of {{ bookings.length }} entries</span>
+
+          <div class="pagination">
+            <button class="btn btn-sm btn-outline-primary"
+                    (click)="prevPage()"
+                    [disabled]="currentPage === 1">
+              Previous
+            </button>
+
+            <span class="page-info mx-3">Page {{ currentPage }} of {{ totalPages }}</span>
+
+            <button class="btn btn-sm btn-outline-primary"
+                    (click)="nextPage()"
+                    [disabled]="currentPage === totalPages">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

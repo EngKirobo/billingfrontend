@@ -1,0 +1,48 @@
+<div class="page-wrapper">
+
+  <div class="content-card">
+
+    <h2 class="title">Book Payments</h2>
+
+    <div class="table-section">
+
+      <table class="custom-table">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Hostel</th>
+            <th>Room</th>
+            <th>Student</th>
+            <th>Control Number</th>
+            <th>Amount Paid</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let r of records; let i = index">
+
+            <td>{{ i + 1 }}</td>
+
+            <td>{{ r.hostel_name }}</td>
+
+            <td>{{ r.room_name }}</td>
+
+            <td>{{ r.name }}</td>
+
+            <td>{{ r.controlnumber }}</td>
+
+            <td>{{ r.Amount_Paid }}</td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

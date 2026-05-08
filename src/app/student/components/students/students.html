@@ -105,8 +105,8 @@
         <tbody>
           <!-- <tr *ngFor="let s of students"> -->
           <!-- <tr *ngFor="let s of filteredStudents()"> -->
-          <tr *ngFor="let s of filteredStudents()" (click)="edit(s)" style="cursor: pointer;">
-            <td>{{ s.id }}</td>
+          <tr *ngFor="let s of filteredStudents(); let i=index" (click)="edit(s)" style="cursor: pointer;">
+            <td>{{ i+1 }}</td>
             <td>{{ s.name }}</td>
             <td>{{ s.admino }}</td>
             <td>{{ s.email }}</td>

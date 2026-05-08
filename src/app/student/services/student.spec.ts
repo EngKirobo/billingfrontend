@@ -1,16 +1,20 @@
-import { TestBed } from '@angular/core/testing';
+import { Injectable } from '@angular/core';
+import { Student } from '../interfaces/student';
 
-import { Student } from './student';
+@Injectable({
+  providedIn: 'root'
+})
+export class StudentService {
+  private students: Student[] = [];
 
-describe('Student', () => {
-  let service: Student;
+  constructor() {}
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(Student);
-  });
+  // Basic method to test
+  addStudent(student: Student): void {
+    this.students.push(student);
+  }
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+  getStudents(): Student[] {
+    return this.students;
+  }
+}

@@ -56,8 +56,8 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let h of hostels">
-            <td>{{ h.id }}</td>
+          <tr *ngFor="let h of hostels; let i = index">
+            <td>{{ i + 1 }}</td>
             <td>{{ h.name }}</td>
             <td>{{ h.description }}</td>
             <td>{{ h.location }}</td>

@@ -1,4 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
 /* PAGE BACKGROUND + CENTERING */
 .page-wrapper {
   min-height: 100vh;
@@ -48,14 +47,16 @@ label {
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-  border: 1.5px solid #ccc;
+  border: 1.5px solid #3f0505;
   transition: 0.3s;
 }
 
 .form-control:focus {
   border-color: #4c7faf;
   box-shadow: 0 0 6px rgba(76, 127, 175, 0.3);
-  outline: none;
+  outline-color: #3b6d99;
+  background-color: #baddfb;
+  color:#7a1414;
 }
 
 /* ERROR */
@@ -144,7 +145,7 @@ label {
 
 /* ROW HOVER */
 .custom-table tbody tr:hover {
-  background: #f9f9f9;
+  background: #a8a7a7;
 }
 
 /* ACTION BUTTON SPACING */
@@ -197,31 +198,4 @@ td button {
   .form-grid {
     grid-template-columns: repeat(5, 1fr);
   }
-}
-
-
-/* DEFAULT (mobile <500px) → stacked */
-.filter-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-}
-
-/* >=500px → ONE LINE */
-@media (min-width: 500px) {
-  .filter-row {
-    grid-template-columns: repeat(3, 1fr);
-    align-items: end;
-  }
-}
-
-
-.error-box {
-  margin-top: 10px;
-  padding: 10px;
-  background: #fdecea;
-  color: #e74c3c;
-  border: 1px solid #e74c3c;
-  border-radius: 6px;
-  font-weight: 600;
 }

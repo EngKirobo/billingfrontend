@@ -1,0 +1,83 @@
+<div class="page-wrapper">
+  <div class="content-card">
+
+    <h2 class="title">Program Management</h2>
+
+    <!-- SUCCESS MESSAGE -->
+    <div *ngIf="successMessage" class="success-msg">
+      {{ successMessage }}
+    </div>
+
+    <!-- FORM -->
+    <form [formGroup]="form" (ngSubmit)="save()" class="form-section">
+
+      <div class="form-grid">
+
+        <!-- Name -->
+        <div class="form-group">
+          <label>Program Name *</label>
+          <input type="text" formControlName="name" class="form-control">
+          <small class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+            Name is required
+          </small>
+        </div>
+
+        <!-- Department -->
+        <div class="form-group">
+          <label>Department ID *</label>
+          <input type="number" formControlName="deptId" class="form-control">
+          <small class="error" *ngIf="form.get('deptId')?.touched && form.get('deptId')?.invalid">
+            Valid Dept ID required
+          </small>
+        </div>
+
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary">
+          {{ isEditing ? 'Update Program' : 'Save Program' }}
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="clear()">
+          Clear
+        </button>
+      </div>
+
+    </form>
+
+    <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Dept ID</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of programs; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.deptId }}</td>
+            <td>{{ p.createdAt }}</td>
+            <td>{{ p.updatedAt }}</td>
+
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="edit(p)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="delete(p.id!)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</div>

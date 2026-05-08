@@ -1,6 +1,6 @@
 <div class="page-wrapper">
   <div class="content-card">
-    <h2 class="title">Hostel and Rooms Details</h2>
+    <h2 class="title">Add/Edit  Rooms to Hostel</h2>
 
     <!-- FORM -->
 <form [formGroup]="form" (ngSubmit)="submit()" class="form-section">
@@ -115,8 +115,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let d of details">
-            <td>{{ d.id }}</td>
+          <tr *ngFor="let d of details; let i = index">
+            <td>{{ i + 1 }}</td>
             <!-- <td>{{ d.hostelId }}</td> -->
              <td>{{ getHostelValue(d.hostelId) }}</td>
             <td>{{ d.name }}</td>
