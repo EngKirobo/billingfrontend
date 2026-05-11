@@ -19,34 +19,23 @@ export class HostelDetailService {
       Authorization: `Bearer ${token}`
     });
   }
-
-  getAll(): Observable<HostelDetail[]> {
-    return this.http.get<HostelDetail[]>(this.apiUrl, {
-      headers: this.getHeaders()
-    });
+getAll(): Observable<HostelDetail[]> {
+    return this.http.get<HostelDetail[]>(this.apiUrl, { headers: this.getHeaders() });
   }
 
   getById(id: number): Observable<HostelDetail> {
-    return this.http.get<HostelDetail>(`${this.apiUrl}/${id}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<HostelDetail>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
   create(data: HostelDetailRequest): Observable<HostelDetail> {
-    return this.http.post<HostelDetail>(this.apiUrl, data, {
-      headers: this.getHeaders()
-    });
+    return this.http.post<HostelDetail>(this.apiUrl, data, { headers: this.getHeaders() });
   }
 
   update(id: number, data: HostelDetailRequest): Observable<HostelDetail> {
-    return this.http.put<HostelDetail>(`${this.apiUrl}/${id}`, data, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<HostelDetail>(`${this.apiUrl}/${id}`, data, { headers: this.getHeaders() });
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
-      headers: this.getHeaders()
-    });
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 }

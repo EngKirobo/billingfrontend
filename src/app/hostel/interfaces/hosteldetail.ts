@@ -10,9 +10,9 @@ export interface HostelDetail {
 }
 
 export interface HostelDetailRequest {
-  hostel_id: number;
+  hostelId: number;
   name: string;
-  level_id: number;
-  intake_id: number;
-  gender_id: number;
+  levelId: number;
+  intakeId: number;
+  genderId: number;
 }

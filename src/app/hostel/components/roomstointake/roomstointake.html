@@ -1,0 +1,110 @@
+<div class="page-wrapper">
+  <div class="content-card">
+    <h2 class="title">Add/Edit  Rooms to Hostel</h2>
+
+    <!-- FORM -->
+<form [formGroup]="form" (ngSubmit)="submit()" class="form-section">
+
+  <div class="form-grid">
+
+    <!-- Hostel Name -->
+    <div class="form-group">
+      <label>Hostel Name</label>
+      <select formControlName="hostelId" class="form-control">
+        <option [ngValue]="null">-- Select Hostel Name --</option>
+        <option *ngFor="let host of hostels" [ngValue]="host.id">
+          {{ host.name }}
+        </option>
+      </select>
+      <small class="error" *ngIf="form.get('hostelId')?.invalid && form.get('hostelId')?.touched">
+        Please select a valid Hostel.
+      </small>
+    </div>
+
+    <!-- Entry Level -->
+<!-- Bulk Entry Level Update -->
+<div class="form-group">
+  <label>Education Level</label>
+  <select
+    class="form-control"
+    [disabled]="updating"
+    (change)="bulkUpdateLevel($event)">
+    <option value="">-- Select Entry Level --</option>
+    <option *ngFor="let edu of edulevels" [value]="edu.id">
+      {{ edu.eduLevel }}
+    </option>
+  </select>
+</div>
+
+        <!-- Intake -->
+    <!-- Bulk Intake Update -->
+    <div class="form-group">
+      <label>Change Intake</label>
+      <select
+        class="form-control"
+        (change)="bulkUpdateIntake($event)"
+      >
+        <option value="">-- Select Intake --</option>
+        <option
+          *ngFor="let intake of intakes"
+          [value]="intake.id"
+        >
+          {{ intake.intake }}
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+
+</form>
+
+    <!-- TABLE -->
+    <div class="table-section">
+      <table class="custom-table">
+        <thead>
+          <tr>
+        <th>
+            <input
+            type="checkbox"
+            [checked]="isAllSelected()"
+            (change)="toggleAll($event)"
+          />
+        </th>
+            <th>IDs</th>
+            <th>Hostel</th>
+            <th>Name</th>
+            <th>EntryLevel</th>
+            <th>Intake</th>
+            <th>Gender</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let d of details; let i = index"> -->
+            <tr *ngFor="let d of filteredDetails;">
+            <td>
+              <input
+                type="checkbox"
+                [checked]="isSelected(d.id!)"
+                (change)="toggleSelection(d.id!)"
+              />
+            </td>
+            <td>{{ d.id }}</td>
+            <!-- <td>{{ d.hostelId }}</td> -->
+             <td>{{ getHostelValue(d.hostelId) }}</td>
+            <td>{{ d.name }}</td>
+            <td>{{ getEdulelValue(d.levelId) }}</td>
+            <td>{{ getIntakeValue(d.intakeId) }}</td>
+            <!-- <td>{{ d.intakeId }}</td> -->
+            <td>{{ getGenderValue(d.genderId) }}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -33,8 +33,10 @@ export class HostelBookingComponent implements OnInit {
     this.form = this.fb.group({
       roomId: [null, Validators.required],
       studentId: [null, Validators.required],
-      academicYear: ['', Validators.required],
-      semester: ['', Validators.required],
+        academicYear: ['2026/2027'],
+        semester: ['I'],
+      // academicYear: ['', Validators.required],
+      // semester: ['', Validators.required],
       verified: [false],
       allowed: [false]
     });

@@ -1,0 +1,76 @@
+/* ==================== FORM STYLING ==================== */
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+/* Each Form Group with Solid Border */
+.form-group {
+  background: #707d92;
+  border: 2px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group:hover {
+  border-color: #64748b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Label Styling */
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #e2e8f0;
+  font-size: 14.5px;
+}
+
+/* Input / Select Styling */
+.form-control {
+  width: 100%;
+  padding: 12px 14px;
+  background: #4d5871;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+.form-control:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Error Message */
+small.error {
+  display: block;
+  margin-top: 8px;
+  color: #f87171;
+  font-size: 13px;
+}
+
+/* Optional: Title for Form */
+.title {
+  margin-bottom: 20px;
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}

@@ -1,3 +1,4 @@
+import { RoomsComponent } from './hostel/components/room/room';
 import { BookpayComponent } from './hostel/components/bookpay/bookpay';
 import { StudentsComponent } from './student/components/students/students';
 import { PriceComponent } from './hostel/components/price/price';
@@ -23,6 +24,8 @@ import { loginGuard } from './guards/login-guard';
 import { AutomationComponent } from './hostel/components/automation/automation';
 // app.routes.ts (or admin.routes.ts)
 import { HostelDashboard } from './hostel/components/hostel-dashboard/hostel-dashboard';
+import { RoomstointakeComponent } from './hostel/components/roomstointake/roomstointake';
+import { Bookinghostel } from './hostel/components/bookinghostel/bookinghostel';
 
 
 const adminRoutes: Routes = [
@@ -90,8 +93,11 @@ export const routes: Routes = [
       { path: 'intakes', component: IntakeComponent },
       { path: 'hostels', component: HostelComponent },
       { path: 'hosteldetails', component: HostelDetailComponent },
+      { path: 'rooms', component: RoomsComponent},
+      {path:'roomsintake',component:RoomstointakeComponent},
       { path: 'assignrooms', component: AssignroomsComponent },
       { path: 'hostelbookings', component: HostelBookingComponent },
+      { path: 'bookinghoste', component: Bookinghostel},
       { path: 'hostelpays', component: PaymentComponent },
 
       {

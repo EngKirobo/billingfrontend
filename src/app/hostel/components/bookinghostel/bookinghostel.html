@@ -1,0 +1,102 @@
+<div class="form-group">
+  <label>Search Student</label>
+
+  <div
+  class="alert alert-danger"
+  *ngIf="errorMessage"
+>
+  {{ errorMessage }}
+</div>
+
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (input)="filterStudents()"
+    placeholder="Search by name, reg no, email..."
+    class="form-control"
+  >
+</div>
+<div
+  class="student-search-table"
+  *ngIf="searchTerm.trim() && filteredStudentsList.length > 0"
+>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Admin No</th>
+        <th>Email</th>
+         <th>Gender</th>
+        <th>EntryLevel No</th>
+        <th>Intake</th>
+        <th>Program</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let student of filteredStudentsList">
+
+        <td>{{ student.name }}</td>
+        <td>{{ student.admino }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.genderId }}</td>
+        <td>{{ student.entryId }}</td>
+        <td>{{ student.intakeId }}</td>
+        <td>{{ student.programId }}</td>
+
+        <td>
+          <button
+            type="button"
+            class="select-btn"
+            (click)="selectStudent(student)"
+          >
+            Select
+          </button>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+  <div
+  class="hostel-match-table"
+  *ngIf="matchedHostelDetails.length > 0"
+>
+
+  <h3>Matching Hostel Rooms</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Room ID</th>
+        <th>Room Name</th>
+        <th>Hostel ID</th>
+        <th>Gender ID</th>
+        <th>Level ID</th>
+        <th>Intake ID</th>
+      </tr>
+    </thead>
+
+    <tbody>
+<ng-container *ngFor="let hostel of matchedHostelDetails">
+        <tr *ngFor="let room of getRoomsByHostelDetail(hostel.id!)">
+
+
+    <td>{{ room.id }}</td>
+    <td>{{ hostel.name }}</td>
+    <td>{{ hostel.hostelId }}</td>
+    <td>{{ hostel.genderId }}</td>
+    <td>{{ hostel.levelId }}</td>
+    <td>{{ hostel.intakeId }}</td>
+
+      </tr>
+</ng-container>
+    </tbody>
+  </table>
+
+
+
+</div>

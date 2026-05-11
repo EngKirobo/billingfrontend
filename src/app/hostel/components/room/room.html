@@ -1,0 +1,128 @@
+<div class="page-wrapper">
+
+  <div class="content-card">
+
+    <h2>Rooms Management</h2>
+
+    <!-- SUCCESS -->
+    <div
+      class="alert success"
+      *ngIf="successMessage"
+    >
+      {{ successMessage }}
+    </div>
+
+    <!-- ERROR -->
+    <div
+      class="alert error"
+      *ngIf="errorMessage"
+    >
+      {{ errorMessage }}
+    </div>
+
+    <!-- FORM -->
+    <form
+      [formGroup]="form"
+      (ngSubmit)="save()"
+    >
+
+      <div class="form-group">
+        <label>Hostel Detail ID</label>
+
+        <input
+          type="number"
+          formControlName="hdetailsId"
+          class="form-control"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Bed ID</label>
+
+        <input
+          type="number"
+          formControlName="bedId"
+          class="form-control"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Price ID</label>
+
+        <input
+          type="number"
+          formControlName="priceId"
+          class="form-control"
+        >
+      </div>
+
+      <div class="button-group">
+
+        <button
+          type="submit"
+          class="btn save-btn"
+        >
+          {{ isEditing ? 'Update' : 'Save' }}
+        </button>
+
+        <button
+          type="button"
+          class="btn reset-btn"
+          (click)="resetForm()"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </form>
+
+    <!-- TABLE -->
+    <table class="room-table">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Hostel Detail</th>
+          <th>Bed</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let room of rooms">
+
+          <td>{{ room.id }}</td>
+          <td>{{ room.hdetailsId }}</td>
+          <td>{{ room.bedId }}</td>
+          <td>{{ room.priceId }}</td>
+
+          <td>
+
+            <button
+              class="btn edit-btn"
+              (click)="edit(room)"
+            >
+              Edit
+            </button>
+
+            <button
+              class="btn delete-btn"
+              (click)="delete(room.id!)"
+            >
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
