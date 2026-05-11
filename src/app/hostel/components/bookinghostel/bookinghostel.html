@@ -82,7 +82,8 @@
 
     <tbody>
 <ng-container *ngFor="let hostel of matchedHostelDetails">
-        <tr *ngFor="let room of getRoomsByHostelDetail(hostel.id!)">
+
+  <tr *ngFor="let room of getAvailableRoomsByHostelDetail(hostel.id!)">
 
 
     <td>{{ room.id }}</td>

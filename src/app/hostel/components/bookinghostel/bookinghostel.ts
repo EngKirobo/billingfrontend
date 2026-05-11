@@ -284,4 +284,31 @@ resetForm() {
   this.selectedId = undefined!;
 }
 
+getAvailableRoomsByHostelDetail(hostelDetailId: number): Room[] {
+
+  return this.rooms.filter(room => {
+
+    // ROOM MUST MATCH HOSTEL DETAIL
+    const matchesHostel =
+      room.hdetailsId === hostelDetailId;
+
+    if (!matchesHostel) {
+      return false;
+    }
+
+    // CHECK IF ROOM IS BOOKED
+    const booking = this.bookings.find(
+      b => b.roomId === room.id
+    );
+
+    // ROOM IS AVAILABLE IF:
+    // 1. NO BOOKING EXISTS
+    // OR
+    // 2. studentId IS NULL
+
+    return !booking || booking.studentId == null;
+
+  });
+}
+
 }
