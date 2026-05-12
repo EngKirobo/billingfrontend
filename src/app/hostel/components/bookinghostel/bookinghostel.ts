@@ -24,8 +24,9 @@ export class Bookinghostel implements OnInit {
   form!: FormGroup;
   isEditing = false;
   selectedId!: number;
-
+  errorAudio = new Audio('src/assets/sound/error.wav');
   successMessage = '';
+  selectedStudentId!: number;
 
   students: Student[] = [];
   searchTerm: string = '';
@@ -49,6 +50,11 @@ rooms: Room[] = [];
      this.loadStudents();
      this.loadHostelDetails();
      this.loadRooms();
+     this.errorAudio.src = 'assets/sound/error.wav';
+
+     this.errorAudio.load();
+
+
 
     this.form = this.fb.group({
       roomId: [null, Validators.required],
@@ -172,37 +178,35 @@ filterStudents() {
 // }
 
 errorMessage = '';
+
+
 selectStudent(student: Student) {
 
+  // STORE SELECTED STUDENT
+  this.selectedStudentId = student.id!;
 
-  // CHECK IF STUDENT IS ALREADY BOOKED
   const existingBooking = this.bookings.find(
     b => b.studentId === student.id
   );
 
-  // IF FOUND
   if (existingBooking) {
 
     this.errorMessage =
       `${student.name} is already booked for hostel.`;
 
-    this.successMessage = '';
+    this.playErrorSound();
 
-    // CLEAR MATCHED ROOMS
     this.matchedHostelDetails = [];
 
     return;
   }
 
-  // CLEAR OLD ERROR
   this.errorMessage = '';
 
-  // SET FORM VALUE
   this.form.patchValue({
     studentId: student.id
   });
 
-  // FIND MATCHING HOSTEL DETAILS
   this.matchedHostelDetails = this.hostelDetails.filter(h =>
 
     h.genderId === student.genderId &&
@@ -211,13 +215,98 @@ selectStudent(student: Student) {
 
   );
 
-  console.log('Matched Hostel Details:', this.matchedHostelDetails);
-
-  // OPTIONAL UI UPDATES
   this.searchTerm = student.name;
   this.filteredStudentsList = [];
 
   this.cdr.detectChanges();
+}
+////////////////////////////////////EndSelect
+
+assignStudentToRoom(roomId: number) {
+
+  // FIND EXISTING BOOKING FOR ROOM
+  const booking = this.bookings.find(
+    b => b.roomId === roomId
+  );
+
+  // IF BOOKING RECORD EXISTS
+  if (booking) {
+
+    const updatedBooking: HostelBooking = {
+
+      ...booking,
+
+      studentId: this.selectedStudentId,
+      allowed: true
+    };
+
+    this.bookingService.update(
+      booking.id!,
+      updatedBooking
+    ).subscribe({
+
+      next: () => {
+
+        this.successMessage =
+          'Rooms is reserved successfully';
+
+        this.loadBookings();
+
+        this.matchedHostelDetails = [];
+
+        this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+
+        console.error(err);
+
+        this.errorMessage =
+          'Failed to book a room';
+
+        this.playErrorSound();
+      }
+    });
+
+  } else {
+
+    // CREATE NEW BOOKING RECORD
+
+    const newBooking: HostelBooking = {
+
+      roomId: roomId,
+      studentId: this.selectedStudentId,
+      academicYear: '2026/2027',
+      semester: 'I',
+      verified: false,
+      allowed: false
+    };
+
+    this.bookingService.create(newBooking).subscribe({
+
+      next: () => {
+
+        this.successMessage =
+          'Student assigned successfully';
+
+        this.loadBookings();
+
+        this.matchedHostelDetails = [];
+
+        this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+
+        console.error(err);
+
+        this.errorMessage =
+          'Failed to create booking';
+
+        this.playErrorSound();
+      }
+    });
+  }
 }
 
 afterSave(message: string) {
@@ -308,6 +397,17 @@ getAvailableRoomsByHostelDetail(hostelDetailId: number): Room[] {
 
     return !booking || booking.studentId == null;
 
+  });
+}
+
+playErrorSound() {
+
+  this.errorAudio.pause();
+
+  this.errorAudio.currentTime = 0;
+
+  this.errorAudio.play().catch(err => {
+    console.log('Audio play blocked:', err);
   });
 }
 

@@ -1,11 +1,17 @@
 <div class="form-group">
   <label>Search Student</label>
 
-  <div
-  class="alert alert-danger"
-  *ngIf="errorMessage"
->
+  <!-- <div class="alert alert-danger" *ngIf="errorMessage">
   {{ errorMessage }}
+</div> -->
+
+  <div class="alert alert-danger" *ngIf="errorMessage" style="color: red; font-weight: bold; font-size: 16px;">
+  {{ errorMessage }}
+</div>
+
+
+  <div class="alert alert-danger" *ngIf="successMessage" style="color: rgb(43, 0, 255); font-weight: bold; font-size: 16px;">
+  {{ successMessage }}
 </div>
 
   <input
@@ -60,13 +66,14 @@
     </tbody>
   </table>
 
+
 </div>
   <div
   class="hostel-match-table"
   *ngIf="matchedHostelDetails.length > 0"
 >
 
-  <h3>Matching Hostel Rooms</h3>
+  <h3>Vacant Rooms-Click the Room to Book</h3>
 
   <table>
     <thead>
@@ -83,7 +90,11 @@
     <tbody>
 <ng-container *ngFor="let hostel of matchedHostelDetails">
 
-  <tr *ngFor="let room of getAvailableRoomsByHostelDetail(hostel.id!)">
+  <tr
+  *ngFor="let room of getAvailableRoomsByHostelDetail(hostel.id!)"
+  class="selectable-row"
+  (click)="assignStudentToRoom(room.id!)"  title="CLICK TO BOOK"
+>
 
 
     <td>{{ room.id }}</td>

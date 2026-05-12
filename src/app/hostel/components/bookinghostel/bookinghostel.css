@@ -352,3 +352,46 @@ td button {
 .hostel-match-table tbody tr:hover {
   background: #f8fafc;
 }
+
+.custom-alert {
+  color: red !important;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.selectable-row {
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.selectable-row:hover {
+  background: #dbeafe !important;
+}
+
+/* CUSTOM HOVER MESSAGE */
+.selectable-row:hover::after {
+
+  content: "CLICK TO BOOK";
+
+  position: absolute;
+
+  top: 50%;
+  right: 20px;
+
+  transform: translateY(-50%);
+
+  background: #2563eb;
+  color: white;
+
+  padding: 6px 12px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  white-space: nowrap;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}

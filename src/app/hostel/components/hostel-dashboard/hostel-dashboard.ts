@@ -68,4 +68,34 @@ export class HostelDashboard {
 }
 
 mobileMenuOpen = false;
+
+private _errorMessage: string = '';
+
+get errorMessage(): string {
+  return this._errorMessage;
+}
+
+set errorMessage(value: string) {
+  this._errorMessage = value;
+  if (value) {
+    this.playErrorSound();
+  }
+}
+
+playErrorSound() {
+  const audio = new Audio('/src/assets/sound/error.mp3');
+  audio.load();
+  audio.play().catch(err => console.log('Audio playback blocked until user interacts with the page:', err));
+}
+
+// playErrorSound() {
+
+//   this.errorAudio.pause();
+
+//   this.errorAudio.currentTime = 0;
+
+//   this.errorAudio.play().catch(err => {
+//     console.log('Audio play blocked:', err);
+//   });
+// }
 }
