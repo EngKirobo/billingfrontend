@@ -1,8 +1,11 @@
+import { HostelBookingService } from './../../services/hostelbooking';
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule,ReactiveFormsModule, Validators } from '@angular/forms';
 import { PaymentService } from '../../services/hostelpayment';
-import { Payment } from '../../interfaces/hostelpayment';
+import { Payment,PaymentRequest } from '../../interfaces/hostelpayment';
 import { CommonModule } from '@angular/common';
+
+import { HostelBooking } from '../../interfaces/hostelbooking';
 
 @Component({
   selector: 'app-payment',
@@ -17,29 +20,129 @@ export class PaymentComponent implements OnInit {
 
   isEditing = false;
   selectedId!: number;
-
+  hostelbookingId!: number;
   successMessage = '';
   errorMessage = '';
+  bookings: HostelBooking[] = [];
 
   constructor(
     private fb: FormBuilder,
     private paymentService: PaymentService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private hostelBookingService: HostelBookingService
 
   ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.load();
+     this.loadBookings();
+      // insert hostel bookings into payments table
+    this.insertHostelBookingsIntoPayments();
   }
+
+
+  loadBookings(): void {
+
+  this.hostelBookingService.getAll()
+    .subscribe({
+
+      next: (data) => {
+        this.bookings = data;
+      }
+
+    });
+
+}
+
+insertHostelBookingsIntoPayments(): void {
+
+  this.hostelBookingService.getAll().subscribe({
+
+    next: (bookings: HostelBooking[]) => {
+
+      this.paymentService.getAll().subscribe({
+
+        next: (payments: Payment[]) => {
+
+          // Existing payment hostelbookingIds
+          const paymentIds = payments.map(
+            p => p.hostelbookingId
+          );
+
+          // ONLY booked rooms with stud_id
+          // and not already in payments
+          const missingBookings = bookings.filter(
+            booking =>
+              booking.id != null &&
+              booking.studentId != null &&
+              !paymentIds.includes(booking.id)
+          );
+
+          missingBookings.forEach((booking) => {
+
+            const payment: PaymentRequest = {
+
+              hostelbookingId: booking.id!,
+
+              controlNumber: '',
+
+              paymentDate: new Date().toISOString(),
+
+              status: false
+
+            };
+
+            this.paymentService.create(payment)
+              .subscribe({
+
+                next: () => {
+
+                  console.log(
+                    `Inserted booking ID ${booking.id}`
+                  );
+
+                },
+
+                error: (err) => {
+
+                  console.error(
+                    `Failed booking ID ${booking.id}`,
+                    err
+                  );
+
+                }
+
+              });
+
+          });
+
+          this.load();
+
+        }
+
+      });
+
+    }
+
+  });
+
+}
+
+getStudentIdByBooking(hostelbookingId: number): number | string {
+
+  const booking = this.bookings.find(
+    (b: any) => b.id === hostelbookingId
+  );
+
+  return booking ? booking.studentId : '';
+}
 
   initForm() {
     this.form = this.fb.group({
       hostelbookingId: [null, Validators.required],
       controlNumber: ['', Validators.required],
-      //  paymentDate: [new Date().toISOString(), Validators.required],
-      // paymentDate: ['', Validators.required],
-      // status: [false]
+
     });
   }
 
@@ -114,4 +217,20 @@ export class PaymentComponent implements OnInit {
       this.errorMessage = 'Something went wrong.';
     }
   }
+ saveControlNumber(payment: any) {
+
+  this.paymentService.update(payment.id, payment)
+    .subscribe({
+
+      next: () => {
+        this.successMessage = 'Control Number saved successfully';
+      },
+
+      error: () => {
+        this.errorMessage = 'Failed to save Control Number';
+      }
+
+    });
+
+}
 }

@@ -310,3 +310,34 @@ button,
   font-weight: bold;
   font-size: 20px;
 }
+
+.dropdown-title {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.submenu {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.submenu-link {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #ddd;
+  font-size: 14px;
+  border-radius: 6px;
+  margin-top: 4px;
+  transition: 0.3s;
+}
+
+.submenu-link:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.active-link {
+  background: rgba(255,255,255,0.15);
+}

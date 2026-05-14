@@ -23,17 +23,59 @@
 
       <nav class="menu">
 
+  <div *ngFor="let item of menuItems">
+
+    <!-- NORMAL LINK -->
+    <a
+      *ngIf="!item.children"
+      [routerLink]="item.route"
+      routerLinkActive="active-link"
+      class="menu-link"
+      (click)="mobileMenuOpen = false"
+    >
+      <span>{{ item.label }}</span>
+    </a>
+
+    <!-- DROPDOWN -->
+    <div *ngIf="item.children">
+
+      <!-- PARENT -->
+      <div
+        class="menu-link dropdown-title"
+        (click)="item.expanded = !item.expanded"
+      >
+
+        <span>{{ item.label }}</span>
+
+        <span>
+          {{ item.expanded ? '▲' : '▼' }}
+        </span>
+
+      </div>
+
+      <!-- CHILDREN -->
+      <div
+        class="submenu"
+        *ngIf="item.expanded"
+      >
+
         <a
-          *ngFor="let item of menuItems"
-          [routerLink]="item.route"
+          *ngFor="let child of item.children"
+          [routerLink]="child.route"
           routerLinkActive="active-link"
-          class="menu-link"
+          class="submenu-link"
           (click)="mobileMenuOpen = false"
         >
-          <span>{{ item.label }}</span>
+          {{ child.label }}
         </a>
 
-      </nav>
+      </div>
+
+    </div>
+
+  </div>
+
+</nav>
 
     </div>
 
@@ -54,20 +96,62 @@
 
     </div>
 
+
     <nav class="menu">
 
-      <a
-        *ngFor="let item of menuItems"
-        [routerLink]="item.route"
-        routerLinkActive="active-link"
-        class="menu-link"
+  <div *ngFor="let item of menuItems">
+
+    <!-- NORMAL LINK -->
+    <a
+      *ngIf="!item.children"
+      [routerLink]="item.route"
+      routerLinkActive="active-link"
+      class="menu-link"
+      (click)="mobileMenuOpen = false"
+    >
+      <span>{{ item.label }}</span>
+    </a>
+
+    <!-- DROPDOWN -->
+    <div *ngIf="item.children">
+
+      <!-- PARENT -->
+      <div
+        class="menu-link dropdown-title"
+        (click)="item.expanded = !item.expanded"
       >
 
         <span>{{ item.label }}</span>
 
-      </a>
+        <span>
+          {{ item.expanded ? '▲' : '▼' }}
+        </span>
 
-    </nav>
+      </div>
+
+      <!-- CHILDREN -->
+      <div
+        class="submenu"
+        *ngIf="item.expanded"
+      >
+
+        <a
+          *ngFor="let child of item.children"
+          [routerLink]="child.route"
+          routerLinkActive="active-link"
+          class="submenu-link"
+          (click)="mobileMenuOpen = false"
+        >
+          {{ child.label }}
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</nav>
 
   </aside>
 

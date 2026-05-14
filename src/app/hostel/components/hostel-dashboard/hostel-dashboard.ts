@@ -29,12 +29,18 @@ export class HostelDashboard {
     this.menuItems = [
       { label: 'Prices', route: 'prices' },
       { label: 'Intakes', route: 'intakes' },
-      { label: 'Hostels', route: 'hostels' },
-      { label: 'Hostel Details', route: 'hosteldetails' },
-      { label: 'ViewRooms', route: 'assignrooms' },
-      { label: 'Allocate Rooms', route: 'roomsintake' },
-      { label: 'Add Bed to Rooms', route: 'rooms' },
-      { label: 'Hostel Bookings', route: 'hostelbookings' },
+      {
+        label: 'Hostel',
+        expanded: false,
+        children: [
+          { label: 'Hostels', route: 'hostels' },
+          { label: 'Hostel Details', route: 'hosteldetails' },
+          { label: 'View Rooms', route: 'assignrooms' },
+          { label: 'Allocate Rooms', route: 'roomsintake' },
+          { label: 'Add Bed to Rooms', route: 'rooms' }
+        ]
+      },
+      { label: 'Edit Bookings', route: 'hostelbookings' },
       { label: 'Booking', route: 'bookinghoste' },
       { label: 'Hostel Payments', route: 'hostelpays' },
       { label: 'Book Payments', route: 'bookpays' },

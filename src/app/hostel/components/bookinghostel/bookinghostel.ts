@@ -248,7 +248,7 @@ assignStudentToRoom(roomId: number) {
       next: () => {
 
         this.successMessage =
-          'Rooms is reserved successfully';
+          'You have booked your room successfully';
 
         this.loadBookings();
 
