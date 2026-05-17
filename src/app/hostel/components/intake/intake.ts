@@ -88,11 +88,11 @@ export class IntakeComponent implements OnInit {
   }
 
   delete(id: number) {
-    if (!confirm('Delete this intake?')) return;
+    // if (!confirm('Delete this intake?')) return;
 
-    this.intakeService.delete(id).subscribe(() => {
-      this.loadIntakes();
-    });
+    // this.intakeService.delete(id).subscribe(() => {
+    //   this.loadIntakes();
+    // });
   }
 
   reset() {

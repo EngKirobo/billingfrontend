@@ -79,11 +79,11 @@ export class HostelComponent implements OnInit {
   }
 
   delete(id: number) {
-    if (!confirm('Delete this hostel?')) return;
+    // if (!confirm('Delete this hostel?')) return;
 
-    this.hostelService.delete(id).subscribe(() => {
-      this.loadHostels();
-    });
+    // this.hostelService.delete(id).subscribe(() => {
+    //   this.loadHostels();
+    // });
   }
 
   reset() {

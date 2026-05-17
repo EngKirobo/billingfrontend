@@ -21,8 +21,9 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Booking</th>
+            <th>AdminNo</th>
              <th>StudentId</th>
+             <th>RoomId</th>
             <th>Control</th>
 
             <th>Save</th>
@@ -31,12 +32,17 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let p of payments">
+          <tr *ngFor="let p of payments; let i = index">
 
-  <td>{{ p.id }}</td>
+  <td>{{ i+1 }}</td>
 
-  <td>{{ p.hostelbookingId }}</td>
-   <td>{{ getStudentIdByBooking(p.hostelbookingId) }}</td>
+  <!-- <td>{{ p.hostelbookingId }}</td> -->
+   <td>{{ getStudentNameByBooking(p.hostelbookingId).admino }}</td>
+   <td>{{ getStudentNameByBooking(p.hostelbookingId).name }}</td>
+
+
+       <!-- ROOM ID -->
+   <td>{{ getHostelNameByBooking(p.hostelbookingId) }}</td>
 
   <!-- CONTROL NUMBER INPUT -->
   <td>
@@ -44,7 +50,7 @@
       type="text"
       [(ngModel)]="p.controlNumber"
       [ngModelOptions]="{standalone: true}"
-      class="form-control"
+      class="form-control" style="max-width:130px"
       placeholder="Enter Control Number"
     >
   </td>

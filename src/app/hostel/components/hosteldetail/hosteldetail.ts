@@ -189,10 +189,10 @@ loadSavedForm() {
   }
 
   delete(id: number) {
-    if (!confirm('Delete this record?')) return;
-    this.service.delete(id).subscribe(() => {
-      this.load();
-    });
+    // if (!confirm('Delete this record?')) return;
+    // this.service.delete(id).subscribe(() => {
+    //   this.load();
+    // });
   }
 
   getIntakeValue(id: number | null | undefined): number | string {

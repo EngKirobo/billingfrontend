@@ -156,24 +156,24 @@ export class RoomsComponent implements OnInit {
 
   delete(id: number) {
 
-    if (confirm('Delete room?')) {
+    // if (confirm('Delete room?')) {
 
-      this.roomService.delete(id).subscribe({
+    //   this.roomService.delete(id).subscribe({
 
-        next: () => {
+    //     next: () => {
 
-          this.loadRooms();
-        },
+    //       this.loadRooms();
+    //     },
 
-        error: (err) => {
+    //     error: (err) => {
 
-          console.error(err);
+    //       console.error(err);
 
-          this.errorMessage =
-            'Failed to delete room';
-        }
-      });
-    }
+    //       this.errorMessage =
+    //         'Failed to delete room';
+    //     }
+    //   });
+    // }
   }
 
   resetForm() {

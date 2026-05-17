@@ -330,9 +330,9 @@ afterSave(message: string) {
   }
 
   delete(id: number) {
-    if (confirm('Are you sure you want to delete this booking?')) {
-      this.bookingService.delete(id).subscribe(() => this.loadBookings());
-    }
+    // if (confirm('Are you sure you want to delete this booking?')) {
+    //   this.bookingService.delete(id).subscribe(() => this.loadBookings());
+    // }
   }
 
   // Add these properties

@@ -92,12 +92,12 @@ export class ProgramComponent implements OnInit {
 
   // ✅ Delete
   delete(id: number) {
-    if (confirm('Delete program?')) {
-      this.programService.delete(id).subscribe({
-        next: () => this.load(),
-        error: (err) => console.error(err)
-      });
-    }
+    // if (confirm('Delete program?')) {
+    //   this.programService.delete(id).subscribe({
+    //     next: () => this.load(),
+    //     error: (err) => console.error(err)
+    //   });
+    // }
   }
 
   // ✅ Clear form manually

@@ -100,11 +100,11 @@ export class StudentsComponent implements OnInit {
 
   // ================= DELETE =================
   delete(id: number) {
-    if (confirm('Delete student?')) {
-      this.studentService.delete(id).subscribe(() => {
-        this.load();
-      });
-    }
+    // if (confirm('Delete student?')) {
+    //   this.studentService.delete(id).subscribe(() => {
+    //     this.load();
+    //   });
+    // }
   }
 
   // ================= AFTER SAVE =================

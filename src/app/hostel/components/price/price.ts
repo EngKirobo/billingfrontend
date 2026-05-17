@@ -81,11 +81,11 @@ export class PriceComponent implements OnInit {
   }
 
   delete(id: number) {
-    if (!confirm('Delete this price?')) return;
+    // if (!confirm('Delete this price?')) return;
 
-    this.priceService.delete(id).subscribe(() => {
-      this.loadPrices();
-    });
+    // this.priceService.delete(id).subscribe(() => {
+    //   this.loadPrices();
+    // });
   }
 
   reset() {

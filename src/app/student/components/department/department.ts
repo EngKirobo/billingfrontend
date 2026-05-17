@@ -92,12 +92,12 @@ export class DepartmentComponent implements OnInit {
 
   // ✅ Delete
   delete(id: number) {
-    if (confirm('Delete department?')) {
-      this.departmentService.delete(id).subscribe({
-        next: () => this.load(),
-        error: (err) => console.error(err)
-      });
-    }
+    // if (confirm('Delete department?')) {
+    //   this.departmentService.delete(id).subscribe({
+    //     next: () => this.load(),
+    //     error: (err) => console.error(err)
+    //   });
+    // }
   }
 
   // ✅ Clear form

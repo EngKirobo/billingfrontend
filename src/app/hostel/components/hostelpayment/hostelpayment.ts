@@ -6,41 +6,82 @@ import { Payment,PaymentRequest } from '../../interfaces/hostelpayment';
 import { CommonModule } from '@angular/common';
 
 import { HostelBooking } from '../../interfaces/hostelbooking';
+import { Student } from '../../../student/interfaces/student';
+import { StudentService } from '../../../student/services/student';
+import { RoomService } from '../../services/room';
+import { Room } from '../../interfaces/room';
+import { HostelDetail } from '../../interfaces/hosteldetail';
+import { HostelDetailService } from '../../services/hosteldetail';
 
 @Component({
   selector: 'app-payment',
   imports:[ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './hostelpayment.html',
-  styleUrl:'./hostelpayment.css'
+  styleUrls:['./hostelpayment.css']
 })
 export class PaymentComponent implements OnInit {
-
+  hostelDetails: HostelDetail[] = [];
   payments: Payment[] = [];
   form!: FormGroup;
-
+  rooms: Room[]=[];
   isEditing = false;
   selectedId!: number;
   hostelbookingId!: number;
   successMessage = '';
   errorMessage = '';
   bookings: HostelBooking[] = [];
-
+  students: Student[]=[];
   constructor(
     private fb: FormBuilder,
     private paymentService: PaymentService,
     private cdr: ChangeDetectorRef,
-    private hostelBookingService: HostelBookingService
+    private hostelBookingService: HostelBookingService,
+    private studentService:StudentService,
+    private roomService: RoomService,
+    private hostelDetailService: HostelDetailService
 
   ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.load();
+    this.loadRooms();
+    this.loadStudents();
      this.loadBookings();
       // insert hostel bookings into payments table
     this.insertHostelBookingsIntoPayments();
+    this.loadHostelDetails();
   }
 
+
+
+  loadHostelDetails(): void {
+
+    this.hostelDetailService.getAll()
+      .subscribe({
+
+        next: (data) => {
+          this.hostelDetails = data;
+
+        }
+
+      });
+
+  }
+
+
+  loadStudents(): void {
+
+  this.studentService.getAll()
+    .subscribe({
+
+      next: (data) => {
+        this.students = data;
+      }
+
+    });
+
+}
 
   loadBookings(): void {
 
@@ -54,6 +95,51 @@ export class PaymentComponent implements OnInit {
     });
 
 }
+
+
+loadRooms(): void {
+
+  this.roomService.getAll()
+    .subscribe({
+
+      next: (data) => {
+        this.rooms = data;
+      }
+
+    });
+
+}
+
+
+getHostelNameByBooking(hostelbookingId: number): string {
+
+  // FIND BOOKING
+  const booking = this.bookings.find(
+    (b: any) => b.id === hostelbookingId
+  );
+
+  if (!booking) {
+    return '';
+  }
+
+  // FIND ROOM
+  const room = this.rooms.find(
+    (r: any) => r.id === booking.roomId
+  );
+
+  if (!room) {
+    return '';
+  }
+
+  // FIND HOSTEL DETAIL
+  const hostelDetail = this.hostelDetails.find(
+    (h: any) => h.id === room.hdetailsId
+  );
+
+  return hostelDetail ? hostelDetail.name : '';
+
+}
+
 
 insertHostelBookingsIntoPayments(): void {
 
@@ -138,6 +224,69 @@ getStudentIdByBooking(hostelbookingId: number): number | string {
   return booking ? booking.studentId : '';
 }
 
+// getStudentNameByBooking(hostelbookingId: number): string {
+
+//   // find booking
+//   const booking = this.bookings.find(
+//     (b: any) => b.id === hostelbookingId
+//   );
+
+//   if (!booking) {
+//     return '';
+//   }
+
+//   // find student using booking.studentId
+//   const student = this.students.find(
+//     (s: any) => s.id === booking.studentId
+//   );
+
+//   return student ? student.name : '';
+
+// }
+
+getStudentNameByBooking(hostelbookingId: number): { name: string; admino: string } {
+
+  // find booking
+  const booking = this.bookings.find(
+    (b: any) => b.id === hostelbookingId
+  );
+
+  if (!booking) {
+    return { name: '', admino: '' };
+  }
+
+  // find student using booking.studentId
+  const student = this.students.find(
+    (s: any) => s.id === booking.studentId
+  );
+
+  if (!student) {
+    return { name: '', admino: '' };
+  }
+
+  return {
+    name: student.name || '',
+    admino: student.admino || ''
+  };
+}
+
+// getRoomIdByBooking(hostelbookingId: number): number | string {
+
+//   const booking = this.bookings.find(
+//     (b: any) => b.id === hostelbookingId
+//   );
+
+//   return booking ? booking.roomId : '';
+// }
+
+getBookingDetails(hostelbookingId: number): any {
+
+  return this.bookings.find(
+    (b: any) => b.id === hostelbookingId
+  ) || {};
+
+}
+
   initForm() {
     this.form = this.fb.group({
       hostelbookingId: [null, Validators.required],
@@ -190,9 +339,9 @@ getStudentIdByBooking(hostelbookingId: number): number | string {
 
   // ✅ DELETE
   delete(id: number) {
-    if (confirm('Delete payment?')) {
-      this.paymentService.delete(id).subscribe(() => this.load());
-    }
+    // if (confirm('Delete payment?')) {
+    //   this.paymentService.delete(id).subscribe(() => this.load());
+    // }
   }
 
   // ✅ AFTER SAVE
@@ -217,17 +366,44 @@ getStudentIdByBooking(hostelbookingId: number): number | string {
       this.errorMessage = 'Something went wrong.';
     }
   }
- saveControlNumber(payment: any) {
+//
+
+saveControlNumber(payment: any) {
+
+  // CLEAR OLD MESSAGES
+  this.successMessage = '';
+  this.errorMessage = '';
 
   this.paymentService.update(payment.id, payment)
     .subscribe({
 
       next: () => {
+
         this.successMessage = 'Control Number saved successfully';
+                                this.cdr.detectChanges();
+
+
+        // AUTO HIDE AFTER 0.5 SECOND
+        setTimeout(() => { this.successMessage = ''; this.cdr.detectChanges();}, 1000);
+
+
+
       },
 
-      error: () => {
-        this.errorMessage = 'Failed to save Control Number';
+      error: (err) => {
+
+        this.errorMessage =
+          err?.error?.message ||
+          'Failed to save Control Number';
+                                  this.cdr.detectChanges();
+
+
+        // AUTO HIDE AFTER 0.5 SECOND
+        setTimeout(() => {
+          this.errorMessage = ''; this.cdr.detectChanges();
+        }, 1000);
+
+
       }
 
     });
