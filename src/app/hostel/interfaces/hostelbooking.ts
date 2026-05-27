@@ -6,6 +6,7 @@ export interface HostelBooking {
   semester: string;
   verified?: boolean;
   allowed?: boolean;
+  ctn?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

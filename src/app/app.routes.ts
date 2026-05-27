@@ -1,3 +1,4 @@
+import { GenerateBillsComponent } from './hostel/components/generate-bills/generate-bills';
 import { RoomsComponent } from './hostel/components/room/room';
 import { BookpayComponent } from './hostel/components/bookpay/bookpay';
 import { StudentsComponent } from './student/components/students/students';
@@ -26,6 +27,9 @@ import { AutomationComponent } from './hostel/components/automation/automation';
 import { HostelDashboard } from './hostel/components/hostel-dashboard/hostel-dashboard';
 import { RoomstointakeComponent } from './hostel/components/roomstointake/roomstointake';
 import { Bookinghostel } from './hostel/components/bookinghostel/bookinghostel';
+import { ControlNumberComponent } from './hostel/components/controlnumber/controlnumber';
+import { StudentFormComponent } from './student/components/student-form/student-form';
+import { CourseComponent } from './shortcourse/components/course/course';
 
 
 const adminRoutes: Routes = [
@@ -83,23 +87,26 @@ export const routes: Routes = [
 //  {path: 'programs',component: ProgramComponent},
 //  {path: 'departments',component: DepartmentComponent},
 
-
+{ path: 'courses', component: CourseComponent },
 {
     path: 'hosteldashboard',
     component: HostelDashboard,
     children: [
 
+
+      { path: 'entryform', component:StudentFormComponent},
       { path: 'prices', component: PriceComponent },
       { path: 'intakes', component: IntakeComponent },
       { path: 'hostels', component: HostelComponent },
       { path: 'hosteldetails', component: HostelDetailComponent },
+      {path:'generatebills',component:GenerateBillsComponent},
       { path: 'rooms', component: RoomsComponent},
       {path:'roomsintake',component:RoomstointakeComponent},
       { path: 'assignrooms', component: AssignroomsComponent },
       { path: 'hostelbookings', component: HostelBookingComponent },
       { path: 'bookinghoste', component: Bookinghostel},
       { path: 'hostelpays', component: PaymentComponent },
-
+      { path: 'ctn', component: ControlNumberComponent},
       {
         path: 'bookpays',
         component: BookpayComponent,
@@ -124,6 +131,10 @@ export const routes: Routes = [
  // Default redirect
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' }
+
+
+
+
 //  {path: 'admindashboard',component:Admindashboard},
 // {path: 'adminroles',component:AdminUsers, canActivate: [adminGuard] },
 // {path: 'permissions',component:RolePermissions, canActivate: [adminGuard] }

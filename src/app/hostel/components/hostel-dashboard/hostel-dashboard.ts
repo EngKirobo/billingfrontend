@@ -44,7 +44,10 @@ export class HostelDashboard {
       { label: 'Booking', route: 'bookinghoste' },
       { label: 'Hostel Payments', route: 'hostelpays' },
       { label: 'Book Payments', route: 'bookpays' },
+      { label: 'Create ControlNo', route: 'ctn' },
       { label: 'Automation', route: 'automation' },
+      {label:'Register New Student',route:'entryform'},
+      {label:'create control no', route: 'generatebills'},
       { label: 'Students', route: 'students' },
       { label: 'Programs', route: 'programs' },
       { label: 'Departments', route: 'departments' }

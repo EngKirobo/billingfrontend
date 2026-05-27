@@ -51,6 +51,7 @@ export class PaymentComponent implements OnInit {
       // insert hostel bookings into payments table
     this.insertHostelBookingsIntoPayments();
     this.loadHostelDetails();
+    this.cdr.detectChanges();
   }
 
 
@@ -62,6 +63,7 @@ export class PaymentComponent implements OnInit {
 
         next: (data) => {
           this.hostelDetails = data;
+          // this.cdr.detectChanges();
 
         }
 
@@ -90,6 +92,7 @@ export class PaymentComponent implements OnInit {
 
       next: (data) => {
         this.bookings = data;
+        this.cdr.detectChanges();
       }
 
     });

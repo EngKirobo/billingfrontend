@@ -1,0 +1,6 @@
+<button
+  class="btn btn-success"
+  (click)="generateBills()"
+  [disabled]="isLoading">
+  {{ isLoading ? 'Processing...' : 'Generate Control Numbers' }}
+</button>

@@ -1,0 +1,177 @@
+<div class="page-wrapper">
+
+  <div class="content-card">
+
+    <form [formGroup]="studentForm" (ngSubmit)="submit()">
+
+      <h2>Student Registration</h2>
+
+      <!-- ROW 1 -->
+      <div class="form-row three-columns">
+
+        <!-- NAME -->
+        <div class="form-group">
+          <label>Name *</label>
+
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control"
+            placeholder="Enter student name"
+          >
+
+          <small
+            *ngIf="studentForm.get('name')?.invalid &&
+                   studentForm.get('name')?.touched"
+            class="error-text">
+
+            Name is required
+
+          </small>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group">
+          <label>Email</label>
+
+          <input
+            type="email"
+            formControlName="email"
+            class="form-control"
+            placeholder="Auto generated if empty"
+          >
+        </div>
+
+        <!-- ADMIN -->
+        <div class="form-group">
+          <label>Admission No</label>
+
+          <input
+            type="text"
+            formControlName="admino"
+            class="form-control"
+            placeholder="Auto generated if empty"
+          >
+        </div>
+
+      </div>
+
+      <!-- ROW 2 -->
+      <div class="form-row four-columns">
+
+        <!-- COUNTRY -->
+        <div class="form-group">
+          <label>Country</label>
+
+          <input
+            type="text"
+            formControlName="country"
+            class="form-control"
+            placeholder="Default: Tz"
+          >
+        </div>
+
+        <!-- DOB -->
+        <div class="form-group">
+          <label>Date of Birth</label>
+
+          <input
+            type="date"
+            formControlName="dob"
+            class="form-control"
+          >
+        </div>
+
+        <!-- GENDER -->
+        <div class="form-group">
+          <label>Gender ID</label>
+
+          <input
+            type="number"
+            formControlName="genderId"
+            class="form-control"
+            placeholder="Default: 1"
+          >
+        </div>
+
+        <!-- ENTRY -->
+        <div class="form-group">
+          <label>Entry ID</label>
+
+          <input
+            type="number"
+            formControlName="entryId"
+            class="form-control"
+            placeholder="Default: 1"
+          >
+        </div>
+
+      </div>
+
+      <!-- ROW 3 -->
+      <div class="form-row three-columns">
+
+        <!-- PROGRAM -->
+        <div class="form-group">
+          <label>Program ID</label>
+
+          <input
+            type="number"
+            formControlName="programId"
+            class="form-control"
+            placeholder="Default: 1"
+          >
+        </div>
+
+        <!-- INTAKE -->
+        <div class="form-group">
+          <label>Intake ID</label>
+
+          <input
+            type="number"
+            formControlName="intakeId"
+            class="form-control"
+            placeholder="Default: 1"
+          >
+        </div>
+
+        <!-- PHONE -->
+        <div class="form-group">
+          <label>Telephone</label>
+
+          <input
+            type="text"
+            formControlName="telephone"
+            class="form-control"
+            placeholder="Default: 0912223344"
+          >
+        </div>
+
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="button-group">
+
+        <button
+          type="submit"
+          class="btn save-btn">
+
+          Save Student
+
+        </button>
+
+        <button
+          type="reset"
+          class="btn reset-btn">
+
+          Reset
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

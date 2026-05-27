@@ -1,0 +1,153 @@
+<div class="page-wrapper">
+
+  <div class="content-card">
+
+    <h2>Generate Hostel Bills</h2>
+
+    <p class="description">
+      Click the button below to generate control numbers and bills.
+    </p>
+
+    <button
+      class="btn generate-btn"
+      (click)="generateBills()"
+      [disabled]="loading">
+
+      {{ loading ? 'Generating Bills...' : 'Generate Bills' }}
+
+    </button>
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="alert info">
+      Processing students and generating bills...
+    </div>
+
+    <!-- ERROR -->
+    <div *ngIf="errorMessage" class="alert error">
+      {{ errorMessage }}
+    </div>
+
+    <!-- SUCCESS -->
+    <div *ngIf="response" class="alert success">
+
+      <strong>
+        {{ response.message }}
+      </strong>
+
+      <br><br>
+
+      Total Processed:
+      {{ response.results?.length }}
+
+    </div>
+
+   <!-- RESULTS TABLE -->
+<div *ngIf="response?.results?.length">
+
+  <table class="room-table">
+
+    <thead>
+
+      <tr>
+
+        <th>Student</th>
+
+        <th>Booking ID</th>
+
+        <th>Status</th>
+
+        <th>Control Number</th>
+
+        <th>Bill Description</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let item of response.results">
+
+        <td>
+
+          {{ item.student }}
+
+        </td>
+
+        <td>
+
+          {{ item.bookingId }}
+
+        </td>
+
+        <td>
+
+          {{ item.status }}
+
+        </td>
+
+        <td>
+
+          {{
+            item.bill_details?.['1._via_bank']
+            ?.match('Reference Number: ([0-9]+)')?.[1]
+          }}
+
+        </td>
+
+        <td>
+
+          {{ item.bill_details?.bill_description }}
+
+        </td>
+
+      </tr>
+
+      <!-- EXTRA DETAILS ROW -->
+      <tr *ngFor="let item of response.results">
+
+        <td colspan="5">
+
+          <div class="bill-details">
+
+            <h4>Bill Details</h4>
+
+            <p>
+
+              <strong>Bank Instructions:</strong>
+
+              {{ item.bill_details?.['1._via_bank'] }}
+
+            </p>
+
+            <p>
+
+              <strong>Help:</strong>
+
+              {{ item.bill_details?.for_help_call }}
+
+            </p>
+
+            <p>
+
+              <strong>Raw Response:</strong>
+
+              {{ item.response }}
+
+            </p>
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+  </div>
+
+</div>

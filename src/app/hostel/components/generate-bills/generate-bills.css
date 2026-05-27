@@ -1,0 +1,16 @@
+.bill-details {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.bill-details h4 {
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+
+.bill-details p {
+  margin-bottom: 8px;
+  word-break: break-word;
+}
