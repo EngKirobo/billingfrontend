@@ -1,0 +1,86 @@
+<div class="page-wrapper">
+
+  <div class="content-card">
+
+    <!-- TITLE -->
+    <h2 class="title">
+
+      Koz Payments Details
+
+    </h2>
+
+    <!-- ERROR MESSAGE -->
+    <div
+      *ngIf="errorMessage"
+      class="error-box"
+    >
+      {{ errorMessage }}
+    </div>
+
+    <!-- TABLE SECTION -->
+    <div class="table-section">
+
+      <table class="custom-table">
+
+        <thead>
+
+          <tr>
+
+            <th>Payment ID</th>
+
+            <th>Course Name</th>
+
+            <th>Intake ID</th>
+
+            <th>Student ID</th>
+
+            <th>Student Name</th>
+
+            <th>Control Number</th>
+
+            <th>Amount Paid</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let item of records">
+
+            <td>{{ item.paysid }}</td>
+
+            <td>{{ item.courseName }}</td>
+
+            <td>{{ item.intakeId }}</td>
+
+            <td>{{ item.studId }}</td>
+
+            <td>{{ item.name }}</td>
+
+            <td>{{ item.controlnumber }}</td>
+
+            <td>{{ item.amountPaid }}</td>
+
+          </tr>
+
+          <!-- EMPTY DATA -->
+          <tr *ngIf="records.length === 0">
+
+            <td colspan="7" style="text-align:center;">
+
+              No records found
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

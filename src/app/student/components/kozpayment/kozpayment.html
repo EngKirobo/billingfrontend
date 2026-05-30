@@ -1,0 +1,147 @@
+
+
+
+
+<div class="container">
+
+  <h2>Payment CRUD</h2>
+
+  <!-- FORM -->
+  <form  [formGroup]="kozForm"  (ngSubmit)="saveBooking()" >
+
+    <div class="form-group">
+
+      <label>Book ID</label>
+
+      <input
+        type="number"
+        formControlName="coursebookingId"
+        class="form-control"
+      >
+
+    </div>
+
+    <div class="form-group">
+
+      <label>controlNumber</label>
+
+      <input
+        type="number"
+        formControlName="controlNumber"
+        class="form-control"
+      >
+
+    </div>
+
+
+        <div class="form-group">
+
+      <label>paymentDate</label>
+
+      <input
+        type="string"
+        formControlName="paymentDate"
+        class="form-control"
+      >
+
+    </div>
+
+
+
+    <div class="button-group">
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+      >
+        {{ editingId ? 'Update' : 'Save' }}
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+
+    </div>
+
+  </form>
+
+  <hr>
+
+<!-- TABLE -->
+  <table class="table table-bordered">
+
+    <thead>
+
+      <tr>
+
+        <th>ID</th>
+
+        <th>Book ID</th>
+
+        <th>controlNumber</th>
+
+        <th>Date</th>
+
+        <th>payerName</th>
+
+         <th>Updated At</th>
+
+        <th>Created At</th>
+
+        <th>Status</th>
+
+        <th width="200">Actions</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let booking of kozpayments">
+
+        <td>{{ booking.id }}</td>
+
+        <td>{{ booking.coursebookingId }}</td>
+
+        <td>{{ booking.controlNumber }}</td>
+
+        <td>{{ booking.paymentDate }}</td>
+
+        <td>{{ booking.payerName }}</td>
+
+        <td>{{ booking.updatedAt }}</td>
+
+        <td>{{ booking.createdAt }}</td>
+
+        <td>{{ booking.status }}</td>
+
+        <td>
+
+          <button
+            class="btn btn-warning btn-sm"
+            (click)="editBooking(booking)"
+          >
+            Edit
+          </button>
+
+           <!-- <button
+            class="btn btn-danger btn-sm"
+            (click)="deleteBooking(booking.id)"
+          >
+            Delete
+          </button>  -->
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>

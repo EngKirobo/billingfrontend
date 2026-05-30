@@ -1,0 +1,98 @@
+<div class="container">
+
+  <h2>Course Intake CRUD</h2>
+
+  <!-- FORM -->
+  <form
+    [formGroup]="courseintakeForm"
+    (ngSubmit)="saveCourseintake()"
+  >
+
+    <div class="form-group">
+
+      <label>Course ID</label>
+
+      <input
+        type="number"
+        formControlName="courseId"
+        class="form-control"
+        placeholder="Enter Course ID"
+      >
+
+    </div>
+
+    <div class="button-group">
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+      >
+        {{ editingId ? 'Update' : 'Save' }}
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+
+    </div>
+
+  </form>
+
+  <hr>
+
+  <!-- TABLE -->
+  <table class="table table-bordered">
+
+    <thead>
+
+      <tr>
+        <th>ID</th>
+        <th>Course ID</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th width="200">Actions</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let item of courseintakes">
+
+        <td>{{ item.id }}</td>
+
+        <td>{{ item.courseId }}</td>
+
+        <td>{{ item.createdAt }}</td>
+
+        <td>{{ item.updatedAt }}</td>
+
+        <td>
+
+          <button
+            class="btn btn-warning btn-sm"
+            (click)="editCourseintake(item)"
+          >
+            Edit
+          </button>
+
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="deleteCourseintake(item.id)"
+          >
+            Delete
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>

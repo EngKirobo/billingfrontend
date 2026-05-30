@@ -1,31 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { Component,ChangeDetectorRef } from '@angular/core';
-import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { Router } from '@angular/router';     // ← Import this
+import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-hostel-dashboard',
-  imports: [RouterLink,RouterOutlet,CommonModule,ReactiveFormsModule,FormsModule],
+  imports: [RouterLink, RouterOutlet, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './hostel-dashboard.html',
   styleUrl: './hostel-dashboard.css',
 })
 export class HostelDashboard {
 
-
- menuItems: any[] = [];
+  menuItems: any[] = [];
 
   constructor(
     private cdr: ChangeDetectorRef,
-     private router: Router,
-     private authService: AuthService
-  // ← Inject Router here
-
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-
     this.menuItems = [
       { label: 'Prices', route: 'prices' },
       { label: 'Intakes', route: 'intakes' },
@@ -46,65 +42,63 @@ export class HostelDashboard {
       { label: 'Book Payments', route: 'bookpays' },
       { label: 'Create ControlNo', route: 'ctn' },
       { label: 'Automation', route: 'automation' },
-      {label:'Register New Student',route:'entryform'},
-      {label:'create control no', route: 'generatebills'},
+
+      // External Link - Improved
+      {
+        label: 'Generate Koz Bills',
+        url: 'http://127.0.0.1:8000/api/generate-bills-koz',
+        external: true
+      },
+
+      { label: 'Register New Student', route: 'entryform' },
+      { label: 'Create Control No', route: 'generatebills' },
       { label: 'Students', route: 'students' },
       { label: 'Programs', route: 'programs' },
       { label: 'Departments', route: 'departments' }
     ];
 
-    // Refresh UI
     this.cdr.detectChanges();
   }
 
-
   logout() {
-  if (confirm('Are you sure you want to logout?')) {
-
-    // Clear everything related to authentication and permissions
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('permissions');   // ← Important if you store permissions separately
-
-    // If you're using BehaviorSubject in AuthService, reset it
-    this.authService.logout();   // ← Call this if you have logout() in AuthService
-
-    // Redirect to login
-    this.router.navigate(['/login']).then(() => {
-      window.location.reload();   // Clears any cached state
-    });
+    if (confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('permissions');
+      this.authService.logout();
+      this.router.navigate(['/login']).then(() => {
+        window.location.reload();
+      });
+    }
   }
-}
 
-mobileMenuOpen = false;
+  // Improved navigation method
+  navigate(item: any): void {
+    if (item.url && item.external) {
+      window.open(item.url, '_blank', 'noopener,noreferrer');
+      return;
+    }
 
-private _errorMessage: string = '';
-
-get errorMessage(): string {
-  return this._errorMessage;
-}
-
-set errorMessage(value: string) {
-  this._errorMessage = value;
-  if (value) {
-    this.playErrorSound();
+    if (item.route) {
+      this.router.navigate([item.route]);
+    }
   }
-}
 
-playErrorSound() {
-  const audio = new Audio('/src/assets/sound/error.mp3');
-  audio.load();
-  audio.play().catch(err => console.log('Audio playback blocked until user interacts with the page:', err));
-}
+  // Mobile menu
+  mobileMenuOpen = false;
 
-// playErrorSound() {
+  private _errorMessage: string = '';
+  get errorMessage(): string {
+    return this._errorMessage;
+  }
+  set errorMessage(value: string) {
+    this._errorMessage = value;
+    if (value) this.playErrorSound();
+  }
 
-//   this.errorAudio.pause();
-
-//   this.errorAudio.currentTime = 0;
-
-//   this.errorAudio.play().catch(err => {
-//     console.log('Audio play blocked:', err);
-//   });
-// }
+  playErrorSound() {
+    const audio = new Audio('/src/assets/sound/error.mp3');
+    audio.load();
+    audio.play().catch(err => console.log('Audio playback blocked:', err));
+  }
 }

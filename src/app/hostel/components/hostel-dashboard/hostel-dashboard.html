@@ -25,9 +25,19 @@
 
   <div *ngFor="let item of menuItems">
 
-    <!-- NORMAL LINK -->
+    <!-- EXTERNAL LINK -->
     <a
-      *ngIf="!item.children"
+      *ngIf="item.url && item.external"
+      href="javascript:void(0)"
+      (click)="navigate(item)"
+      class="menu-link"
+    >
+      <span>{{ item.label }}</span>
+    </a>
+
+    <!-- NORMAL LINK -->
+<a
+      *ngIf="!item.children && !item.url"
       [routerLink]="item.route"
       routerLinkActive="active-link"
       class="menu-link"
@@ -101,9 +111,19 @@
 
   <div *ngFor="let item of menuItems">
 
-    <!-- NORMAL LINK -->
+<!-- EXTERNAL LINK -->
     <a
-      *ngIf="!item.children"
+      *ngIf="item.url && item.external"
+      href="javascript:void(0)"
+      (click)="navigate(item)"
+      class="menu-link"
+    >
+      <span>{{ item.label }}</span>
+    </a>
+
+    <!-- NORMAL INTERNAL LINK -->
+    <a
+      *ngIf="!item.children && !item.url"
       [routerLink]="item.route"
       routerLinkActive="active-link"
       class="menu-link"

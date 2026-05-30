@@ -30,6 +30,10 @@ import { Bookinghostel } from './hostel/components/bookinghostel/bookinghostel';
 import { ControlNumberComponent } from './hostel/components/controlnumber/controlnumber';
 import { StudentFormComponent } from './student/components/student-form/student-form';
 import { CourseComponent } from './shortcourse/components/course/course';
+import { CourseintakeComponent } from './student/components/courseintake/courseintake';
+import { CoursebookingComponent } from './student/components/coursebooking/coursebooking';
+import { KozpaymentComponent } from './student/components/kozpayment/kozpayment';
+import { KozpaysdetailsComponent } from './student/components/kozpaysdetails/kozpaysdetails';
 
 
 const adminRoutes: Routes = [
@@ -74,20 +78,12 @@ export const routes: Routes = [
 
   },
  {path: 'register',component: Register},
-//  {path: 'prices',component: PriceComponent},
-//  {path: 'intakes',component: IntakeComponent},
-//  {path: 'hostels',component: HostelComponent},
-//  {path: 'hosteldetails',component: HostelDetailComponent},
-//  {path: 'assignrooms',component: AssignroomsComponent},
-//  {path: 'hostelbookings',component: HostelBookingComponent},
-//  {path: 'hostelpays',component:PaymentComponent},
-//  {path: 'bookpays', component: BookpayComponent,canActivate: [adminGuard] },
-//  {path: 'automation',component: AutomationComponent},
-//  {path: 'students',component: StudentsComponent},
-//  {path: 'programs',component: ProgramComponent},
-//  {path: 'departments',component: DepartmentComponent},
 
 { path: 'courses', component: CourseComponent },
+{ path: 'courseintake', component: CourseintakeComponent},
+{ path: 'coursebookings', component: CoursebookingComponent},
+{ path: 'kozpayments', component:KozpaymentComponent},
+{ path: 'kozpaydatails', component:KozpaysdetailsComponent},
 {
     path: 'hosteldashboard',
     component: HostelDashboard,

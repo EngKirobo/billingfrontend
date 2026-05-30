@@ -20,53 +20,63 @@ export class GenerateBillsComponent {
 
   apiUrl = 'http://127.0.0.1:8000/api/generate-bills';
 
+  apiUrlkoz = 'http://127.0.0.1:8000/api/generate-bills-koz';
+
   constructor(private http: HttpClient,
               private cdr:ChangeDetectorRef
   ) {}
-
-  // generateBills(): void {
-
-  //   this.loading = true;
-
-  //   this.errorMessage = '';
-
-  //   this.response = null;
-
-  //   this.http.get(this.apiUrl).subscribe({
-
-  //     next: (res: any) => {
-
-  //       this.loading = false;
-
-  //       this.response = res;
-  //       this.cdr.detectChanges();
-
-  //       console.log(res);
-
-  //     },
-
-  //     error: (err) => {
-
-  //       this.loading = false;
-
-  //       console.error(err);
-
-  //       this.errorMessage =
-  //         err?.error?.message ||
-  //         'Failed to generate bills';
-
-  //     }
-
-  //   });
-
-  // }
-
 
   generateBills(): void {
 
   this.loading = true;
 
   this.http.get(this.apiUrl).subscribe({
+
+    next: (res: any) => {
+
+      this.loading = false;
+
+
+      // ADD CONTROL NUMBER EXTRACTION
+      res.results.forEach((item: any) => {
+        this.cdr.detectChanges();
+
+        const bankText =
+          item.bill_details?.['1._via_bank'] || '';
+
+        const match =
+          bankText.match(/Reference Number:\s*(\d+)/i);
+
+        item.controlNumber =
+          match ? match[1] : 'N/A';
+
+      });
+
+      this.response = res;
+      this.cdr.detectChanges();
+
+    },
+
+    error: (err) => {
+
+      this.loading = false;
+
+      this.errorMessage =
+        err?.error?.message ||
+        'Failed to generate bills';
+
+    }
+
+  });
+
+}
+
+
+ generateBillskoz(): void {
+
+  this.loading = true;
+
+  this.http.get(this.apiUrlkoz).subscribe({
 
     next: (res: any) => {
 
