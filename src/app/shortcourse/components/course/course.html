@@ -77,19 +77,31 @@
         </div>
 
         <!-- DEPARTMENT -->
-        <div class="form-group">
+<div class="form-group">
 
-          <label>
-            Department ID
-          </label>
+  <label>
+    Department
+  </label>
 
-          <input
-            type="number"
-            formControlName="deptId"
-            class="form-control"
-          >
+  <select
+    formControlName="deptId"
+    class="form-control"
+  >
 
-        </div>
+    <option value="">
+      Select Department
+    </option>
+
+    <option
+      *ngFor="let dept of departments"
+      [value]="dept.id"
+    >
+      {{ dept.name }}
+    </option>
+
+  </select>
+
+</div>
 
       </div>
 
@@ -127,7 +139,7 @@
 
           <th>ID</th>
 
-          <th>Name</th>
+          <th>Course Name</th>
 
           <th>Description</th>
 
@@ -154,7 +166,7 @@
 
           <td>{{ course.price }}</td>
 
-          <td>{{ course.deptId }}</td>
+          <td>{{ getDepartmentName(course.deptId) }}</td>
 
           <td>
 
@@ -166,13 +178,13 @@
 
             </button>
 
-            <button
+            <!-- <button
               class="btn delete-btn"
               (click)="deleteCourse(course.id)">
 
               Delete
 
-            </button>
+            </button> -->
 
           </td>
 

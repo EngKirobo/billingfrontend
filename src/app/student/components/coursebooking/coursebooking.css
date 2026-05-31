@@ -63,3 +63,23 @@
   border: 1px solid #ddd;
   padding: 10px;
 }
+
+.student-list {
+  border: 1px solid #ddd;
+  max-height: 250px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 6px;
+  margin-top: 5px;
+}
+
+.student-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.student-item:hover {
+  background: #4c7faf;
+  color: white;
+}

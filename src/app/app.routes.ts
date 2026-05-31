@@ -34,6 +34,8 @@ import { CourseintakeComponent } from './student/components/courseintake/coursei
 import { CoursebookingComponent } from './student/components/coursebooking/coursebooking';
 import { KozpaymentComponent } from './student/components/kozpayment/kozpayment';
 import { KozpaysdetailsComponent } from './student/components/kozpaysdetails/kozpaysdetails';
+import { Studentdashbod } from './student/components/studentdashbod/studentdashbod';
+import { KozstudentComponent } from './student/components/kozstudent/kozstudent';
 
 
 const adminRoutes: Routes = [
@@ -79,11 +81,16 @@ export const routes: Routes = [
   },
  {path: 'register',component: Register},
 
-{ path: 'courses', component: CourseComponent },
-{ path: 'courseintake', component: CourseintakeComponent},
-{ path: 'coursebookings', component: CoursebookingComponent},
-{ path: 'kozpayments', component:KozpaymentComponent},
-{ path: 'kozpaydatails', component:KozpaysdetailsComponent},
+ { path: 'kozdashboard', component: Studentdashbod,
+         children: [
+
+      { path: 'courses', component: CourseComponent },
+      { path: 'courseintake', component: CourseintakeComponent},
+      { path: 'kozstudents', component: KozstudentComponent},
+      { path: 'coursebookings', component: CoursebookingComponent},
+      { path: 'kozpayments', component:KozpaymentComponent},
+      { path: 'kozpaydatails', component:KozpaysdetailsComponent},]
+ },
 {
     path: 'hosteldashboard',
     component: HostelDashboard,

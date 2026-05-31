@@ -12,6 +12,9 @@ import {
   CourseService
 } from '../../services/course';
 
+import { DepartmentService } from '../../../student/services/department';
+import { Department } from '../../../student/interfaces/department';
+
 import {
   CourseResponseDTO
 } from '../../interfaces/course';
@@ -24,8 +27,9 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./course.css']
 })
 
-export class CourseComponent
-implements OnInit {
+export class CourseComponent implements OnInit {
+
+ departments: Department[] = [];
 
   courseForm!: FormGroup;
 
@@ -40,6 +44,7 @@ implements OnInit {
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
+    private departmentService: DepartmentService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -58,8 +63,40 @@ implements OnInit {
     });
 
     this.loadCourses();
+    this.loadDepartments();
     this.cdr.detectChanges();
   }
+
+
+getDepartmentName(deptId: number): string {
+
+  const dept = this.departments.find(
+    d => d.id === deptId
+  );
+
+  return dept
+    ? dept.name
+    : '';
+}
+
+  loadDepartments(): void {
+
+  this.departmentService
+    .getAll()
+    .subscribe({
+
+      next: (response) => {
+
+        this.departments = response;
+        this.cdr.detectChanges();
+      },
+
+      error: (error) => {
+
+        console.log(error);
+      }
+    });
+}
 
   loadCourses(): void {
 

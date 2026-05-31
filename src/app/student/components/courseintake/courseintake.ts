@@ -1,8 +1,11 @@
+import { CourseService } from './../../../shortcourse/services/course';
+import { CourseResponseDTO } from './../../../shortcourse/interfaces/course';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { FormBuilder,FormGroup,FormsModule,ReactiveFormsModule,Validators } from '@angular/forms';
 
 import { CourseintakeService } from '../../services/courseintake';
+
 
 import { CourseintakeRequest, CourseintakeResponse } from '../../interfaces/courseintake';
 import { CommonModule } from '@angular/common';
@@ -14,6 +17,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./courseintake.css']
 })
 export class CourseintakeComponent implements OnInit {
+
+  courses: CourseResponseDTO[] = [];
 
   courseintakes: CourseintakeResponse[] = [];
 
@@ -27,6 +32,7 @@ export class CourseintakeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private courseintakeService: CourseintakeService,
+    private courseService: CourseService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -37,6 +43,7 @@ export class CourseintakeComponent implements OnInit {
     });
 
     this.loadCourseintakes();
+     this.loadCourses();
     this.cdr.detectChanges();
   }
 
@@ -65,6 +72,39 @@ export class CourseintakeComponent implements OnInit {
         }
       });
   }
+
+
+getCourseName(courseId: number): string {
+
+  const course = this.courses.find(
+    c => c.id === courseId
+  );
+
+  return course
+    ? course.name
+    : 'Unknown';
+}
+
+
+  loadCourses(): void {
+
+  this.courseService
+    .getAllCourses()
+    .subscribe({
+
+      next: (response) => {
+
+        this.courses = response;
+
+        this.cdr.detectChanges();
+      },
+
+      error: (error) => {
+
+        console.log(error);
+      }
+    });
+}
 
   // ================= SAVE =================
   saveCourseintake(): void {
@@ -135,27 +175,27 @@ export class CourseintakeComponent implements OnInit {
   // ================= DELETE =================
   deleteCourseintake(id: number): void {
 
-    const confirmDelete = confirm(
-      'Are you sure you want to delete this record?'
-    );
+    // const confirmDelete = confirm(
+    //   'Are you sure you want to delete this record?'
+    // );
 
-    if (!confirmDelete) {
-      return;
-    }
+    // if (!confirmDelete) {
+    //   return;
+    // }
 
-    this.courseintakeService
-      .deleteCourseintake(id)
-      .subscribe({
+    // this.courseintakeService
+    //   .deleteCourseintake(id)
+    //   .subscribe({
 
-        next: () => {
+    //     next: () => {
 
-          this.loadCourseintakes();
-        },
+    //       this.loadCourseintakes();
+    //     },
 
-        error: (error) => {
-          console.log(error);
-        }
-      });
+    //     error: (error) => {
+    //       console.log(error);
+    //     }
+    //   });
   }
 
   // ================= RESET =================
@@ -165,4 +205,25 @@ export class CourseintakeComponent implements OnInit {
 
     this.editingId = null;
   }
+
+searchCourse = '';
+
+filteredCourses() {
+
+  return this.courses.filter(course =>
+    course.name
+      .toLowerCase()
+      .includes(this.searchCourse.toLowerCase())
+  );
+}
+
+
+selectCourse(course: any) {
+
+  this.courseintakeForm.patchValue({
+    courseId: course.id
+  });
+
+  this.searchCourse = course.name;
+}
 }

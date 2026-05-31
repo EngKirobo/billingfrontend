@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2>Course Intake CRUD</h2>
+  <h2>Search Course Name to Create new Intake/Bach</h2>
 
   <!-- FORM -->
   <form
@@ -12,12 +12,33 @@
 
       <label>Course ID</label>
 
-      <input
+      <!-- <input
         type="number"
         formControlName="courseId"
         class="form-control"
         placeholder="Enter Course ID"
+      > -->
+
+    <!-- <select
+        formControlName="courseId"
+        class="form-control"
       >
+
+        <option value="">
+          Select Course
+        </option>
+
+        <option
+          *ngFor="let course of courses"
+          [value]="course.id"
+        >
+          {{ course.name }}
+        </option>
+
+      </select> -->
+
+
+      <!--
 
     </div>
 
@@ -44,14 +65,40 @@
 
   <hr>
 
-  <!-- TABLE -->
+   TABLE -->
+
+
+   <input
+  type="text"
+  class="form-control"
+  placeholder="Search course..."
+  [(ngModel)]="searchCourse"
+  [ngModelOptions]="{standalone: true}"
+/>
+
+<div
+  *ngIf="searchCourse"
+  class="course-list"
+>
+
+  <div
+    *ngFor="let course of filteredCourses()"
+    class="course-item"
+    (click)="selectCourse(course)"
+  >
+    {{ course.name }}
+  </div>
+
+</div>
+
+
   <table class="table table-bordered">
 
     <thead>
 
       <tr>
         <th>ID</th>
-        <th>Course ID</th>
+        <th>Course </th>
         <th>Created At</th>
         <th>Updated At</th>
         <th width="200">Actions</th>
@@ -65,7 +112,8 @@
 
         <td>{{ item.id }}</td>
 
-        <td>{{ item.courseId }}</td>
+        <!-- <td>{{ item.courseId }}</td> -->
+         <td> {{ getCourseName(item.courseId) }} </td>
 
         <td>{{ item.createdAt }}</td>
 

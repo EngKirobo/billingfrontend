@@ -1,5 +1,10 @@
 import { CourseBookingResponseDTO, CourseBookingRequestDTO } from './../../interfaces/coursebooking';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CourseintakeResponse } from '../../interfaces/courseintake';
+import { CourseResponseDTO } from '../../../shortcourse/interfaces/course';
+
+import { CourseintakeService } from '../../services/courseintake';
+import { CourseService } from '../../../shortcourse/services/course';
 
 import {
   FormBuilder,
@@ -11,7 +16,8 @@ import {
 
 import { CoursebookingService } from '../../services/coursebooking';
 import { CommonModule } from '@angular/common';
-
+import { StudentService } from '../../services/student';
+import { Student } from '../../interfaces/student';
 
 @Component({
   selector: 'app-coursebooking',
@@ -21,6 +27,10 @@ import { CommonModule } from '@angular/common';
 })
 export class CoursebookingComponent implements OnInit {
 
+  courseIntakes: CourseintakeResponse[] = [];
+
+  courses: CourseResponseDTO[] = [];
+
   bookings: CourseBookingResponseDTO[] = [];
 
   bookingForm!: FormGroup;
@@ -29,9 +39,16 @@ export class CoursebookingComponent implements OnInit {
 
   loading = false;
 
+  students: Student[] = [];
+
+searchStudent = '';
+
   constructor(
     private fb: FormBuilder,
     private coursebookingService: CoursebookingService,
+    private studentService: StudentService,
+    private courseintakeService: CourseintakeService,
+    private courseService: CourseService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -50,36 +67,168 @@ export class CoursebookingComponent implements OnInit {
       ctn: [false]
     });
 
+    this.loadCourseIntakes();
+    this.loadCourses();
+
     this.loadBookings();
 
+    this.loadStudents();
   }
+
+loadCourseIntakes(): void {
+
+  const cached = localStorage.getItem('courseIntakes');
+
+  if (cached) {
+    this.courseIntakes = JSON.parse(cached);
+  }
+
+  this.courseintakeService
+    .getAllCourseintakes()
+    .subscribe({
+
+      next: (response) => {
+
+        this.courseIntakes = response;
+
+        localStorage.setItem(
+          'courseIntakes',
+          JSON.stringify(response)
+        );
+
+        this.checkDataLoaded();
+      },
+
+      error: (error) => {
+        console.log(error);
+      }
+    });
+}
+
+
+pageReady = false;
+
+checkDataLoaded(): void {
+
+  this.pageReady =
+
+    this.bookings.length > 0 &&
+    this.students.length > 0 &&
+    this.courses.length > 0 &&
+    this.courseIntakes.length > 0;
+
+  this.cdr.detectChanges();
+}
+
+loadCourses(): void {
+
+  const cached = localStorage.getItem('courses');
+
+  if (cached) {
+    this.courses = JSON.parse(cached);
+  }
+
+  this.courseService
+    .getAllCourses()
+    .subscribe({
+
+      next: (response) => {
+
+        this.courses = response;
+
+        localStorage.setItem(
+          'courses',
+          JSON.stringify(response)
+        );
+
+        this.checkDataLoaded();
+      },
+
+      error: (error) => {
+        console.log(error);
+      }
+    });
+}
+
+
+getCourseDetails(intakeId: number): string {
+
+  const intake = this.courseIntakes.find(
+    i => i.id === intakeId
+  );
+
+  if (!intake) {
+    return '';
+  }
+
+  const course = this.courses.find(
+    c => c.id === intake.courseId
+  );
+
+  if (!course) {
+    return '';
+  }
+
+  return `${course.name} - ${course.price}`;
+}
 
   // ================= LOAD =================
+  // loadBookings(): void {
+
+  //   this.loading = true;
+  //   this.cdr.detectChanges();
+
+  //   this.coursebookingService
+  //     .getAllBookings()
+  //     .subscribe({
+
+  //       next: (response) => {
+
+  //         this.bookings = response;
+  //         this.checkDataReady();
+  //         this.cdr.detectChanges();
+
+  //         this.loading = false;
+  //       },
+
+  //       error: (error) => {
+
+  //         console.log(error);
+
+  //         this.loading = false;
+  //       }
+  //     });
+  // }
+
   loadBookings(): void {
 
-    this.loading = true;
-    this.cdr.detectChanges();
+  const cached = localStorage.getItem('bookings');
 
-    this.coursebookingService
-      .getAllBookings()
-      .subscribe({
-
-        next: (response) => {
-
-          this.bookings = response;
-          this.cdr.detectChanges();
-
-          this.loading = false;
-        },
-
-        error: (error) => {
-
-          console.log(error);
-
-          this.loading = false;
-        }
-      });
+  if (cached) {
+    this.bookings = JSON.parse(cached);
   }
+
+  this.coursebookingService
+    .getAllBookings()
+    .subscribe({
+
+      next: (response) => {
+
+        this.bookings = response;
+
+        localStorage.setItem(
+          'bookings',
+          JSON.stringify(response)
+        );
+
+        this.checkDataLoaded();
+      },
+
+      error: (error) => {
+        console.log(error);
+      }
+    });
+}
 
   // ================= SAVE =================
   saveBooking(): void {
@@ -168,27 +317,27 @@ export class CoursebookingComponent implements OnInit {
   // ================= DELETE =================
   deleteBooking(id: number): void {
 
-    const confirmDelete = confirm(
-      'Are you sure you want to delete this booking?'
-    );
+    // const confirmDelete = confirm(
+    //   'Are you sure you want to delete this booking?'
+    // );
 
-    if (!confirmDelete) {
-      return;
-    }
+    // if (!confirmDelete) {
+    //   return;
+    // }
 
-    this.coursebookingService
-      .deleteBooking(id)
-      .subscribe({
+    // this.coursebookingService
+    //   .deleteBooking(id)
+    //   .subscribe({
 
-        next: () => {
+    //     next: () => {
 
-          this.loadBookings();
-        },
+    //       this.loadBookings();
+    //     },
 
-        error: (error) => {
-          console.log(error);
-        }
-      });
+    //     error: (error) => {
+    //       console.log(error);
+    //     }
+    //   });
   }
 
   // ================= RESET =================
@@ -205,4 +354,98 @@ export class CoursebookingComponent implements OnInit {
 
     this.editingId = null;
   }
+
+loadStudents(): void {
+
+  const cached = localStorage.getItem('students');
+
+  if (cached) {
+    this.students = JSON.parse(cached);
+  }
+
+  this.studentService
+    .getAll()
+    .subscribe({
+
+      next: (response) => {
+
+        this.students = response;
+
+        localStorage.setItem(
+          'students',
+          JSON.stringify(response)
+        );
+
+        this.checkDataLoaded();
+      },
+
+      error: (error) => {
+        console.log(error);
+      }
+    });
+}
+
+filteredStudents(): Student[] {
+
+  if (!this.searchStudent) {
+    return [];
+  }
+
+  const search = this.searchStudent.toLowerCase();
+
+  return this.students.filter(student =>
+
+    student.name.toLowerCase().includes(search)
+
+    ||
+
+    student.admino.toLowerCase().includes(search)
+  );
+}
+
+
+selectStudent(student: Student): void {
+
+  this.bookingForm.patchValue({
+
+    studId: student.id
+  });
+
+  this.searchStudent =
+    student.admino +
+    ' - ' +
+    student.name;
+}
+
+
+
+getStudentName(studId: number): string {
+
+  const student = this.students.find(
+    s => s.id === studId
+  );
+
+  return student
+    ? student.name
+    : '';
+}
+
+dataReady = false;
+
+checkDataReady(): void {
+
+  this.dataReady =
+    this.bookings.length > 0 &&
+    this.students.length > 0 &&
+    this.courses.length > 0 &&
+    this.courseIntakes.length > 0;
+
+  if (this.dataReady) {
+
+    console.log('All data loaded successfully');
+
+    this.cdr.detectChanges();
+  }
+}
+
 }

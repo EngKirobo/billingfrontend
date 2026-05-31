@@ -8,7 +8,7 @@
     (ngSubmit)="saveBooking()"
   >
 
-    <div class="form-group">
+    <!-- <div class="form-group">
 
       <label>Intake ID</label>
 
@@ -18,19 +18,66 @@
         class="form-control"
       >
 
-    </div>
+    </div> -->
 
     <div class="form-group">
 
-      <label>Student ID</label>
+  <label>Course Intake</label>
 
-      <input
-        type="number"
-        formControlName="studId"
-        class="form-control"
-      >
+  <select
+    formControlName="intakeId"
+    class="form-control"
+  >
+
+    <option value="">
+      Select Course
+    </option>
+
+    <option
+      *ngFor="let intake of courseIntakes"
+      [value]="intake.id"
+    >
+
+      {{ getCourseDetails(intake.id) }}
+
+    </option>
+
+  </select>
+
+</div>
+
+<div class="form-group">
+
+  <label>Student</label>
+
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search by name or admission number"
+    [(ngModel)]="searchStudent"
+    [ngModelOptions]="{standalone: true}"
+  >
+
+  <div
+    *ngIf="filteredStudents().length"
+    class="student-list"
+  >
+
+    <div
+      *ngFor="let student of filteredStudents()"
+      class="student-item"
+      (click)="selectStudent(student)"
+    >
+
+      {{ student.admino }}
+      -
+      {{ student.name }}
 
     </div>
+
+  </div>
+
+</div>
 
 
 
@@ -58,7 +105,15 @@
   <hr>
 
   <!-- TABLE -->
-  <table class="table table-bordered">
+  <!-- <table class="table table-bordered"> -->
+<div *ngIf="!pageReady">
+  Loading...
+</div>
+
+<table
+  *ngIf="pageReady"
+  class="table table-bordered"
+>
 
     <thead>
 
@@ -69,12 +124,6 @@
         <th>Intake ID</th>
 
         <th>Student ID</th>
-
-        <th>Verified</th>
-
-        <th>Allowed</th>
-
-        <th>CTN</th>
 
         <th>Created At</th>
 
@@ -92,15 +141,16 @@
 
         <td>{{ booking.id }}</td>
 
-        <td>{{ booking.intakeId }}</td>
+        <!-- <td>{{ booking.intakeId }}</td> -->
 
-        <td>{{ booking.studId }}</td>
+      <td>
+        {{ getCourseDetails(booking.intakeId) }}
+      </td>
 
-        <td>{{ booking.verified }}</td>
-
-        <td>{{ booking.allowed }}</td>
-
-        <td>{{ booking.ctn }}</td>
+        <!-- <td>{{ booking.studId }}</td> -->
+      <td>
+        {{ getStudentName(booking.studId) }}
+      </td>
 
         <td>{{ booking.createdAt }}</td>
 

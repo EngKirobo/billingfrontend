@@ -1,0 +1,152 @@
+<div class="page-wrapper">
+
+  <div class="content-card">
+
+    <h2 class="title">
+      Koz Students
+    </h2>
+
+    <form
+      [formGroup]="studentForm"
+      (ngSubmit)="save()"
+    >
+
+      <div class="form-grid">
+
+  <div class="form-group">
+    <label>Students Full Name</label>
+    <input
+      class="form-control"
+      formControlName="fullname">
+  </div>
+
+  <div class="form-group">
+    <label>Course Name</label>
+    <input
+      class="form-control"
+      formControlName="coursename">
+  </div>
+
+  <div class="form-group">
+    <label>Course Price</label>
+    <input
+      type="number"
+      class="form-control"
+      formControlName="courseprice">
+  </div>
+
+</div>
+
+
+
+      <div class="btn-group">
+
+        <button
+          class="btn btn-primary"
+          type="submit"
+        >
+          {{
+            editingId
+            ? 'Update'
+            : 'Save'
+          }}
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+        >
+          Clear
+        </button>
+
+      </div>
+
+    </form>
+
+    <br>
+
+    <table
+      class="table table-bordered"
+    >
+
+      <thead>
+
+        <tr>
+
+          <th>ID</th>
+
+          <th> Full Name</th>
+
+          <th>Course</th>
+
+          <th>Price</th>
+
+          <th>Created</th>
+
+
+
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let student
+            of students
+          "
+        >
+
+          <td>
+            {{ student.id }}
+          </td>
+
+          <td>
+            {{ student.fullname }}
+          </td>
+
+          <td>
+            {{ student.coursename }}
+          </td>
+
+          <td>
+            {{ student.courseprice }}
+          </td>
+
+          <td>
+            {{ student.createdAt }}
+          </td>
+
+
+
+          <td>
+
+            <button
+              class="btn btn-warning btn-sm"
+              (click)="edit(student)"
+            >
+              Edit
+            </button>
+
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="delete(student.id)"
+            >
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
