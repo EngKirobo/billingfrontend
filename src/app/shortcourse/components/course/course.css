@@ -106,3 +106,159 @@ h2 {
   background: #fee2e2;
   color: #991b1b;
 }
+
+
+.form-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 250px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* TABLE CONTAINER */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* HEADER */
+.table thead {
+  background: #4c7faf;
+  color: white;
+}
+
+.table thead th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+  border: none;
+}
+
+/* BODY */
+.table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eaeaea;
+  vertical-align: middle;
+}
+
+/* ALTERNATING ROW COLORS */
+.table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+/* HOVER EFFECT */
+.table tbody tr:hover {
+  background: #eef5ff;
+  transition: background 0.3s ease;
+}
+
+/* ACTION BUTTONS */
+.table .btn {
+  margin-right: 5px;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-warning {
+  background: #f39c12;
+  color: white;
+}
+
+.btn-warning:hover {
+  background: #d68910;
+}
+
+.btn-danger {
+  background: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c0392b;
+}
+
+/* RESPONSIVE TABLE */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  .table thead th,
+  .table tbody td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .btn-sm {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+}
+
+.form-control.ng-invalid.ng-touched {
+
+  border: 2px solid #dc3545 !important;
+
+  background-color: #fff5f5;
+
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+}
+
+.form-control.ng-valid.ng-touched {
+
+  border: 2px solid #28a745;
+}
+
+@keyframes invalidBlink {
+
+  0% {
+    border-color: #dc3545;
+  }
+
+  50% {
+    border-color: #ffb3b3;
+  }
+
+  100% {
+    border-color: #dc3545;
+  }
+}
+
+.form-control.ng-invalid.ng-touched {
+
+  animation: invalidBlink 0.8s infinite;
+}
+
+
+.course-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.course-item:hover {
+  background-color: #f5f5f5;
+}

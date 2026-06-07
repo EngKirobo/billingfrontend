@@ -74,11 +74,8 @@ const adminRoutes: Routes = [
 
 export const routes: Routes = [
  {
-   path:'login',
-  component: Login,
-  canActivate: [loginGuard]
+   path:'login',component: Login },
 
-  },
  {path: 'register',component: Register},
 
  { path: 'kozdashboard', component: Studentdashbod,

@@ -14,6 +14,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class Studentdashbod {
 
    menuItems: any[] = [];
+   isAdmin = false;
 
     constructor(
     private cdr: ChangeDetectorRef,
@@ -27,14 +28,15 @@ export class Studentdashbod {
 
       { label: 'courses', route: 'courses' },
       { label: 'Create New Intake', route: 'courseintake' },
-      { label: 'coursebookings', route: 'coursebookings' },
+      { label: 'Create bookings', route: 'coursebookings' },
       {label: 'Enroll Students', route:'kozstudents'},
       { label: 'Enter Control Number', route: 'kozpayments' },
-      { label: 'kozpaymentdatails', route: 'kozpaydatails' },
+      { label: 'payments datails', route: 'kozpaydatails' },
 
 
     ];
      this.cdr.detectChanges();
+      this.isAdmin =this.authService.isAdmin();
 
   }
 

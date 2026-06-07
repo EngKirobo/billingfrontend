@@ -14,17 +14,55 @@
       <div class="form-grid">
 
   <div class="form-group">
-    <label>Students Full Name</label>
-    <input
-      class="form-control"
-      formControlName="fullname">
+
+  <label>Program</label>
+
+  <select
+    class="form-control"
+    formControlName="programId">
+
+    <option value="">
+      Select Program
+    </option>
+
+    <option
+      *ngFor="let program of programs"
+      [value]="program.id">
+
+      {{ program.name }}
+
+    </option>
+
+  </select>
+
+  <div
+    class="error"
+    *ngIf="
+      studentForm.get('programId')?.invalid &&
+      studentForm.get('programId')?.touched
+    "
+  >
+    Program is required.
   </div>
+
+</div>
+
 
   <div class="form-group">
     <label>Course Name</label>
     <input
       class="form-control"
-      formControlName="coursename">
+      formControlName="coursename" readonly>
+
+        <div
+          class="error"
+          *ngIf="
+            studentForm.get('coursename')?.invalid &&
+            studentForm.get('coursename')?.touched
+          "
+        >
+          Course Name is required.
+        </div>
   </div>
 
   <div class="form-group">
@@ -32,8 +70,63 @@
     <input
       type="number"
       class="form-control"
-      formControlName="courseprice">
+      formControlName="courseprice" readonly>
+
+        <div
+          class="error"
+          *ngIf="
+            studentForm.get('courseprice')?.invalid &&
+            studentForm.get('courseprice')?.touched
+          "
+        >
+          Course Price is required.
+        </div>
   </div>
+
+<!--
+  <div class="form-group">
+    <label>Students Full Name</label>
+    <input
+      class="form-control"
+      formControlName="fullname">
+
+        <div
+          class="error"
+          *ngIf="
+            studentForm.get('fullname')?.invalid &&
+            studentForm.get('fullname')?.touched
+          "
+        >
+          Studnet`s Full Name is required.
+        </div>
+  </div> -->
+
+<div class="form-group">
+
+  <label>Enter Students Full Names for Enrollment</label>
+
+  <textarea
+    rows="8"
+    class="form-control"
+    formControlName="fullname"
+    placeholder="Enter one student per line
+
+John Doe
+Jane Smith
+Michael Johnson">
+  </textarea>
+
+  <div
+    class="error"
+    *ngIf="
+      studentForm.get('fullname')?.invalid &&
+      studentForm.get('fullname')?.touched
+    "
+  >
+    At least one student name is required.
+  </div>
+
+</div>
 
 </div>
 
@@ -65,87 +158,57 @@
     </form>
 
     <br>
+<table class="table table-bordered custom-table">
 
-    <table
-      class="table table-bordered"
-    >
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Full Name</th>
+      <th>Course</th>
+      <th>Price</th>
+      <th>Created</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 
-      <thead>
+  <tbody>
 
-        <tr>
+    <!-- <tr *ngFor="let student of students"> -->
+      <tr *ngFor="let student of lastTenStudents">
 
-          <th>ID</th>
+      <td>{{ student.id }}</td>
 
-          <th> Full Name</th>
+      <td>{{ student.fullname }}</td>
 
-          <th>Course</th>
+      <td>{{ student.coursename }}</td>
 
-          <th>Price</th>
+      <td>{{ student.courseprice }}</td>
 
-          <th>Created</th>
+      <td>{{ student.createdAt }}</td>
 
+      <td>
 
-
-          <th>Actions</th>
-
-        </tr>
-
-      </thead>
-
-      <tbody>
-
-        <tr
-          *ngFor="
-            let student
-            of students
-          "
+        <button
+          class="btn btn-warning btn-sm"
+          (click)="edit(student)"
         >
+          Edit
+        </button>
 
-          <td>
-            {{ student.id }}
-          </td>
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="delete(student.id)"
+        >
+          Delete
+        </button>
 
-          <td>
-            {{ student.fullname }}
-          </td>
+      </td>
 
-          <td>
-            {{ student.coursename }}
-          </td>
+    </tr>
 
-          <td>
-            {{ student.courseprice }}
-          </td>
+  </tbody>
 
-          <td>
-            {{ student.createdAt }}
-          </td>
-
-
-
-          <td>
-
-            <button
-              class="btn btn-warning btn-sm"
-              (click)="edit(student)"
-            >
-              Edit
-            </button>
-
-            <button
-              class="btn btn-danger btn-sm"
-              (click)="delete(student.id)"
-            >
-              Delete
-            </button>
-
-          </td>
-
-        </tr>
-
-      </tbody>
-
-    </table>
+</table>
 
   </div>
 

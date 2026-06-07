@@ -181,26 +181,63 @@
     <!-- TOP NAVBAR -->
     <header class="top-navbar">
 
-      <div>
-        <h2>Welcome</h2>
-      </div>
+  <div class="navbar-container">
 
-      <div class="nav-right">
+    <!-- Left -->
+    <div>
+      <h2>Welcome</h2>
+    </div>
 
-        <span class="welcome-text">
-          Welcome, Admin
-        </span>
+    <!-- Horizontal Menu -->
+    <nav class="nav-menu">
 
-        <button
-          class="btn btn-danger"
-          (click)="logout()"
-        >
-          Logout
-        </button>
+      <ul>
 
-      </div>
+        <li>
+          <a
+            routerLink="/kozdashboard/coursebookings"
+            routerLinkActive="active"
+          >
+            Short Courses
+          </a>
+        </li>
 
-    </header>
+
+
+
+
+<li *ngIf="isAdmin">
+  <a
+    routerLink="/admin"
+    routerLinkActive="active"
+  >
+    Admin Dashboard
+  </a>
+</li>
+
+      </ul>
+
+    </nav>
+
+    <!-- Right -->
+    <div class="nav-right">
+
+      <span class="welcome-text">
+        Welcome, Admin
+      </span>
+
+      <button
+        class="btn btn-danger"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
 
     <!-- ROUTER CONTENT -->
     <div class="content-card">

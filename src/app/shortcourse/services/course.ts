@@ -106,12 +106,12 @@ export class CourseService {
   }
 
   // GET BY DEPARTMENT
-  getByDepartment(
-    deptId: number
+  getByProgram(
+    programId: number
   ): Observable<CourseResponseDTO[]> {
 
     return this.http.get<CourseResponseDTO[]>(
-      `${this.apiUrl}/department/${deptId}`,
+      `${this.apiUrl}/program/${programId}`,
       {
         headers: this.getHeaders()
       }

@@ -7,6 +7,7 @@ export interface KozstudentResponse {
   coursename: string;
 
   courseprice: number;
+  programId: number;
 
   createdAt: string;
 
@@ -22,4 +23,7 @@ export interface KozstudentRequest {
   courseprice: number;
 
   accessed: boolean;
+
+  programId: number;
+
 }

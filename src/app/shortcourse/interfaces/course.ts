@@ -3,7 +3,7 @@ export interface CourseResponseDTO {
   name: string;
   description: string;
   price: number;
-  deptId: number;
+  programId: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -12,5 +12,5 @@ export interface CourseRequestDTO {
   name: string;
   description: string;
   price: number;
-  deptId: number;
+  programId: number;
 }

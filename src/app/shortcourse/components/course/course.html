@@ -24,8 +24,50 @@
 
     </div>
 
+<br>
+
+    <h3>
+      Search the Course title to Register New Student
+    </h3>
+    <div class="search-container">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search course..."
+    [(ngModel)]="searchTerm">
+</div>
+
+<div class="search-results" *ngIf="searchTerm.length > 0">
+
+  <div
+    class="course-item"
+    *ngFor="let course of filteredCourses"
+    (click)="selectCourse(course)">
+
+    <strong>{{ course.name }}</strong>
+    -
+    {{ getProgramName(course.programId) }}
+    -
+    {{ course.price | number }}
+
+  </div>
+
+</div>
+
+<br>
+<button
+  type="button"
+  class="btn save-btn"
+  (click)="addNewCourse()">
+  Add New Course
+</button>
+
+
+
+
     <!-- FORM -->
     <form
+      *ngIf="showForm"
       [formGroup]="courseForm"
       (ngSubmit)="submit()">
 
@@ -44,6 +86,16 @@
             class="form-control"
           >
 
+        <div
+          class="error"
+          *ngIf="
+            courseForm.get('name')?.invalid &&
+            courseForm.get('name')?.touched
+          "
+        >
+          Course Name is required.
+        </div>
+
         </div>
 
         <!-- DESCRIPTION -->
@@ -59,6 +111,16 @@
             class="form-control"
           >
 
+        <div
+          class="error"
+          *ngIf="
+            courseForm.get('description')?.invalid &&
+            courseForm.get('description')?.touched
+          "
+        >
+          Description is required.
+        </div>
+
         </div>
 
         <!-- PRICE -->
@@ -73,33 +135,50 @@
             formControlName="price"
             class="form-control"
           >
+        <div
+          class="error"
+          *ngIf="
+            courseForm.get('price')?.invalid &&
+            courseForm.get('price')?.touched
+          "
+        >
+          Enter Valid Price for this course.
+        </div>
 
         </div>
 
         <!-- DEPARTMENT -->
 <div class="form-group">
 
-  <label>
-    Department
-  </label>
+  <label>Program</label>
 
   <select
-    formControlName="deptId"
     class="form-control"
-  >
+    formControlName="programId">
 
     <option value="">
-      Select Department
+      Select Program
     </option>
 
     <option
-      *ngFor="let dept of departments"
-      [value]="dept.id"
-    >
-      {{ dept.name }}
+      *ngFor="let program of programs"
+      [value]="program.id">
+
+      {{ program.name }}
+
     </option>
 
   </select>
+
+  <div
+    class="error"
+    *ngIf="
+      courseForm.get('programId')?.invalid &&
+      courseForm.get('programId')?.touched
+    "
+  >
+    Program is required.
+  </div>
 
 </div>
 
@@ -166,7 +245,7 @@
 
           <td>{{ course.price }}</td>
 
-          <td>{{ getDepartmentName(course.deptId) }}</td>
+          <td>{{ getProgramName(course.programId) }}</td>
 
           <td>
 

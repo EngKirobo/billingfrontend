@@ -11,10 +11,12 @@ export const adminGuard: CanActivateFn = (
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  // NOT LOGGED IN
+
+
+
+   // Not logged in
   if (!auth.isLoggedIn()) {
 
-    // SAVE REQUESTED URL
     router.navigate(
       ['/login'],
       {
@@ -26,12 +28,13 @@ export const adminGuard: CanActivateFn = (
 
     return false;
   }
-
   // NO PERMISSION
-  if (!auth.hasPermission('USER_UPDATE')) {
-    router.navigate(['/unauthorized']);
-    return false;
-  }
+if (!auth.isAdmin()) {
+
+  router.navigate(['/unauthorized']);
+
+  return false;
+}
 
   return true;
 };

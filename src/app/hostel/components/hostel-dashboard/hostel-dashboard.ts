@@ -14,6 +14,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class HostelDashboard {
 
   menuItems: any[] = [];
+  isAdmin = false;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -58,6 +59,9 @@ export class HostelDashboard {
     ];
 
     this.cdr.detectChanges();
+
+      this.isAdmin =this.authService.isAdmin();
+
   }
 
   logout() {

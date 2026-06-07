@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ControlNumber } from './control-number';
+import { ControlNumberService } from './control-number';
 
 describe('ControlNumber', () => {
-  let service: ControlNumber;
+  let service: ControlNumberService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ControlNumber);
+    service = TestBed.inject(ControlNumberService);
   });
 
   it('should be created', () => {
